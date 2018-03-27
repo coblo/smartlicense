@@ -4,6 +4,8 @@ from io import BytesIO
 from os.path import splitext
 
 import os
+
+import docx2txt
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import UploadedFile
 from django.core.validators import FileExtensionValidator
@@ -37,7 +39,7 @@ class WalletID(models.Model):
 class MediaContent(models.Model):
 
     IMAGE_EXTENSIONS = ('jpg', 'png',)
-    TEXT_EXTENSIONS = ('txt', )
+    TEXT_EXTENSIONS = ('txt', 'docx')
     ALLOWED_EXTENSIONS = IMAGE_EXTENSIONS + TEXT_EXTENSIONS
 
     ident = models.CharField(
@@ -96,7 +98,11 @@ class MediaContent(models.Model):
                 ext = file_extension.lower().lstrip('.')
                 data = self.file.open('rb').read()
                 if ext in self.TEXT_EXTENSIONS:
-                    text = self.file.open().read()
+                    if ext == 'docx':
+                        text = docx2txt.process(BytesIO(data))
+                        print(text)
+                    else:
+                        text = self.file.open().read()
                     cid = iscc.content_id_text(text)
                 elif ext in self.IMAGE_EXTENSIONS:
                     cid = iscc.content_id_image(BytesIO(data))
@@ -210,6 +216,7 @@ class RightsModule(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=64)
+    description = models.CharField(max_length=255)
     template = models.TextField()
 
     def __str__(self):

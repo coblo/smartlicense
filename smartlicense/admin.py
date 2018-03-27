@@ -12,8 +12,8 @@ from smartlicense.models import (
 )
 
 
-admin.site.site_header = 'SmartLicense Demo'
-admin.site.site_title = 'SmartLicense Demo'
+admin.site.site_header = 'Smart License Demo'
+admin.site.site_title = 'Smart License Demo'
 admin.site.unregister(User)
 admin.site.unregister(Group)
 
@@ -66,7 +66,7 @@ class RightsModuleAdmin(admin.ModelAdmin):
 
 @admin.register(Template)
 class TemplateAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'description')
 
 
 @admin.register(MediaContent)

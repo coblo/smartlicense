@@ -4,3 +4,4 @@ Fabric3
 django-markup
 PyYAML
 iscc
+docx2txt
