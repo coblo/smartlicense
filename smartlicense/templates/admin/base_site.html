@@ -1,12 +1,33 @@
-{% extends 'admin/base.html' %}
+{% extends "admin/base.html" %}
 {% load i18n %}
 
-{% block userlinks %}
-    {% if user.is_active and user.is_staff %}
-        {% url 'django-admindocs-docroot' as docsroot %}
-        {% if docsroot %}
-            <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
-        {% endif %}
-    {% endif %}
-    <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
 {% endblock %}
+
+{% block usertools %}
+{% if has_permission %}
+<div id="user-tools">
+    {% block welcome-msg %}
+        {% trans 'Welcome,' %}
+        <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+    {% endblock %}
+    {% block userlinks %}
+        {% if site_url %}
+            <a href="{{ site_url }}">{% trans 'View site' %}</a> /
+        {% endif %}
+        {% if user.is_active and user.is_staff %}
+            {% url 'django-admindocs-docroot' as docsroot %}
+            {% if docsroot %}
+                <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+            {% endif %}
+        {% endif %}
+        <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+    {% endblock %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
