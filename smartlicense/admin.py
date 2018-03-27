@@ -14,6 +14,7 @@ from smartlicense.models import (
 
 admin.site.site_header = 'Smart License Demo'
 admin.site.site_title = 'Smart License Demo'
+admin.site.index_title = ''
 admin.site.unregister(User)
 admin.site.unregister(Group)
 admin.site.login_template = 'login.html'
