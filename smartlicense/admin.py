@@ -19,6 +19,7 @@ admin.site.unregister(Group)
 admin.site.login_template = 'login.html'
 
 
+
 @admin.register(WalletID)
 class WalletIDAdmin(admin.ModelAdmin):
     list_display = 'owner', 'address'
@@ -72,8 +73,8 @@ class TemplateAdmin(admin.ModelAdmin):
 
 @admin.register(MediaContent)
 class MediaContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'ident', 'title', 'extra',)
+    list_display = ('name', 'ident', 'title', 'extra',)
     fields = ('ident', 'title', 'extra', 'file')
     readonly_fields = ('ident',)
 
-    search_fields = ('title',)
+    search_fields = ('title', 'name')

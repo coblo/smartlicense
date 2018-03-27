@@ -71,6 +71,11 @@ class MediaContent(models.Model):
         ],
     )
 
+    name = models.CharField(
+        verbose_name='Filename',
+        max_length=255,
+    )
+
     class Meta:
         verbose_name = 'Media Content'
         verbose_name_plural = 'Media Contents'
@@ -87,6 +92,9 @@ class MediaContent(models.Model):
             if not self.file.name.lower().endswith(self.ALLOWED_EXTENSIONS):
                 raise ValidationError('Please provide a supported format: {}'.format(self.ALLOWED_EXTENSIONS))
             basename, ext = os.path.splitext(self.file.name)
+            # Store original file name
+            self.name = self.file.name
+            # Save with sanitized uuid as filename
             self.file.name = u''.join([str(uuid.uuid4()), ext.lower()])
 
     def save(self, *args, **kwargs):
