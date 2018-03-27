@@ -16,6 +16,7 @@ admin.site.site_header = 'Smart License Demo'
 admin.site.site_title = 'Smart License Demo'
 admin.site.unregister(User)
 admin.site.unregister(Group)
+admin.site.login_template = 'login.html'
 
 
 @admin.register(WalletID)
