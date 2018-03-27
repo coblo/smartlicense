@@ -5,3 +5,4 @@ django-markup
 PyYAML
 iscc
 docx2txt
+mcrpc
