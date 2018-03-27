@@ -125,7 +125,7 @@ class MediaContent(models.Model):
                 iid, tophash = iscc.instance_id(data)
                 iscc_code = '-'.join((mid, cid, did, iid))
                 self.ident = iscc_code
-        super().save(*args, *kwargs)
+        super(MediaContent, self).save(*args, **kwargs)
 
 
 class ActivationMode(models.Model):
