@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for smartlicense project.
 
@@ -10,12 +11,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import os
+from os.path import dirname, abspath, join
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCRATCH_DIR = os.path.join(BASE_DIR, '.scratch')
-SCRACTH_DB = os.path.join(SCRATCH_DIR, 'scratch.sqlite3')
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
+SCRATCH_DIR = join(BASE_DIR, '.scratch')
+SCRACTH_DB = join(SCRATCH_DIR, 'scratch.sqlite3')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -62,7 +63,7 @@ MEDIA_URL = '/media/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'smartlicense', 'templates')],
+        'DIRS': [join(BASE_DIR, 'smartlicense', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,3 +127,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Custom project settings
+NODE_IP = '127.0.0.1'
+NODE_PORT = '9718'
+NODE_USER = 'testuser'
+NODE_PWD = 'testpassword'
+
+# Make sure deployment overrides settings
+try:
+    from smartlicense.settings.config import *
+except Exception:
+    print('No custom configuration found. Create a smartlicense/settings/config.py')
+    import sys
+    sys.exit(0)
+

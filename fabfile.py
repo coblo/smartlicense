@@ -38,6 +38,7 @@ def reset():
     local('python manage.py migrate --noinput --run-syncdb')
     local('python manage.py create_demo_user')
     local('python manage.py loaddata fixtures')
+    local('python manage.py import_node_addrs')
 
 
 @task
