@@ -1,0 +1,213 @@
+{% load markup_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+    margin: 0 auto;
+    font-family: Georgia, Palatino, serif;
+    color: #444444;
+    line-height: 1;
+    max-width: 960px;
+    padding: 30px;
+}
+h1, h2, h3, h4 {
+    color: #111111;
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, p {
+    margin-bottom: 24px;
+    padding: 0;
+}
+h1 {
+    font-size: 48px;
+}
+h2 {
+    font-size: 36px;
+    margin: 24px 0 6px;
+}
+h3 {
+    font-size: 24px;
+}
+h4 {
+    font-size: 21px;
+}
+h5 {
+    font-size: 18px;
+}
+a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+li {
+    line-height: 24px;
+}
+li ul, li ul {
+    margin-left: 24px;
+}
+p, ul, ol {
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 540px;
+}
+pre {
+    padding: 0px 24px;
+    max-width: 800px;
+    white-space: pre-wrap;
+}
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.5;
+    font-size: 13px;
+}
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+blockquote {
+    margin: 1em 2em;
+    max-width: 476px;
+}
+blockquote p {
+    color: #666;
+    max-width: 460px;
+}
+hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+}
+table {
+    border-collapse: collapse;
+    margin: 1em 1em;
+    border: 1px solid #CCC;
+}
+table thead {
+    background-color: #EEE;
+}
+table thead td {
+    color: #666;
+}
+table td {
+    padding: 0.5em 1em;
+    border: 1px solid #CCC;
+}
+    </style>
+</head>
+<body>
+<div id="content">
+{% filter apply_markup:"markdown" %}
+# Smart License
+
+**License ID:** {{ sm.ident }}
+**Licensed Material**: {{ sm.materials.first.title }} ({{ sm.materials.first.ident_type }}:{{ sm.materials.first.ident|truncatechars:16 }})
+
+
+## Preface
+
+Today, professional digital content licensing is a complex issue mostly
+dealt with by specialized lawyers. The idea behind smart licenses is to
+provide an easy-to-use license construction kit that even legal laypersons
+can handle. In our smart license generator any interested rights owner
+(licensor) can choose from a limited number of rights modules. Their
+combination, supplemented by some standard terms and individual determinations
+of the term and territory of the rights grant form the content of the smart
+license, i.e. the use rights, that the licensor wants to grant interested
+licensees.
+
+The smart licenses, alongside with basic metadata are publicly registered on
+the Content Blockchain in a secure and reliable, open and transparent,
+automated and machine-readable way.
+
+Subject to the terms and conditions of this smart license, the Licensor hereby
+grants You a non-exclusive worldwide license for the duration of the copyright
+to use the licensed material under these terms and conditions.
+
+## Definitions
+
+- **Content Blockchain:** Technical system to enable rights owners like
+    creators or publishers to license content to users and to register the
+    license transactions publicly and persistently on a blockchain technology
+- **Creator:** The person who created the licensed material (e.g. a composer
+    or an author).
+- **ISCC:** International Standard Content Code - a unique ID (content
+    identifier) that defines the licensed material as a machine-readable code.
+- **Licensee/You:** The individual or entity exercising the rights under this
+    smart license. Your has a corresponding meaning. You can be technically
+    identified on the content blockchain by your
+- **Licensed material:** The artistic or literary work, database, or other
+    material to which the licensor applied this smart license. The licensed
+    material is identified by a unique ISCC.
+- **Licensor:** The individual(s) or entity(ies) granting rights under this
+    license. The licensor can be the creator or another copyright owner
+    (like e.g. a publisher).
+- **Rights Module:** A standardized section of the smart license that
+    describes a certain kind of use. The licensor can choose from a number of
+    rights modules to define the scope of his/her smart license.
+- **Rights Profile:** The combination of rights modules the licensor chose for
+    his smart license.
+- **Smart license:** The sum of rules that apply for the use of the licensed
+    material.
+- **Term:** The period of time the smart license is valid for.
+- **Territory:** The geographical scope of the smart license.
+- **Wallet ID:** A prove of the licence ownership. With a private key you have
+    access to the information on the wallet.
+{% endfilter %}
+
+<h2>License conditions</h2>
+
+<p>
+    You may use the licensed material to the extend and under the conditions
+    defined hereafter:
+</p>
+
+{% if sm.rights_modules.grants.exists %}
+<h3>Licensed Rights</h3>
+{% for rights_module in sm.rights_modules.grants %}
+{{ rights_module.legal_code|apply_markup:"markdown" }}
+{% endfor %}
+<p>All rights that are not mentioned above are reserved.</p>
+{% endif %}
+
+{% if sm.rights_modules.restrictions.exists %}
+<h3>Restrictions</h3>
+{% for rights_module in sm.rights_modules.restrictions %}
+{{ rights_module.legal_code|apply_markup:"markdown" }}
+{% endfor %}
+{% endif %}
+
+{% if sm.rights_modules.oblications.exists %}
+<h3>Obligations</h3>
+{% for rights_module in sm.rights_modules.oblications %}
+{{ rights_module.legal_code|apply_markup:"markdown" }}
+{% endfor %}
+{% endif %}
+
+{% filter apply_markup:"markdown" %}
+## Disclaimer of Warranties
+
+Unless otherwise separately undertaken by the Licensor, to the extent
+    possible, the licensor offers the licensed material as-is and
+    as-available, and makes no representations or warranties of any kind
+    concerning the licensed material, whether express, implied, statutory,
+    or other. This includes, without limitation, warranties of title,
+    merchantability, fitness for a particular purpose, non-infringement,
+    absence of latent or other defects, accuracy, or the presence or absence
+    of errors, whether or not known or discoverable. Where disclaimers of
+    warranties are not allowed in full or in part, this disclaimer may not
+    apply to You.
+{% endfilter %}
+
+</div>
+</body>
+</html>

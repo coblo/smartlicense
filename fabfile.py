@@ -18,7 +18,7 @@ def reset():
     local('pip install -U -r requirements.txt')
 
     if os.path.exists(SCRACTH_DB):
-        print('Remove development database')
+        print('Remove development db:', SCRACTH_DB)
         os.remove(SCRACTH_DB)
 
     if os.path.exists(DIR_MIGRATIONS):
@@ -29,6 +29,7 @@ def reset():
             file_path = os.path.join(DIR_MIGRATIONS, f)
             try:
                 if os.path.isfile(file_path):
+                    print('Deleting:', file_path)
                     os.unlink(file_path)
             except Exception as e:
                 print(e)

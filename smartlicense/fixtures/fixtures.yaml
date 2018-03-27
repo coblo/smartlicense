@@ -1,0 +1,98 @@
+- model: smartlicense.rightsmodule
+  pk: ADAPT
+  fields: {type: grant, help: You may modify the licensed material and **share** your
+      modified version., legal_definition: 'Modify, alter or change the licensed material
+      in any way (e.g. remixing, transforming, shortening, translating, synchronizing,
+      combining with other material). Adaptations may also be **shared**.', legal_code: '**Adapt:**
+      Modify, alter or change the licensed material in any way (e.g. remixing, transforming,
+      shortening, translating, synchronizing, combining with other material). Adaptations
+      may also be **shared**.'}
+- model: smartlicense.rightsmodule
+  pk: ATTRIBUTION
+  fields: {type: oblication, help: If the licensed material contains references to
+      the creator or publisher or copyright notices you must not remove them., legal_definition: "You
+      have to pertain notices that are supplied with the **licensed material** when
+      you **share** or **distribute** it. Under this obligation you have to: \r\n\r\nRetain
+      credits to the creator and/or the publisher;\r\nRetain copyright notices;\r\nIf
+      so stipulated by the licensor retain an URI or hyperlink to an online source
+      of the licensed material", legal_code: "**Attribution:** You have to pertain
+      notices that are supplied with the **licensed material** when you **share**
+      or **distribute** it. Under this obligation you have to: \r\n\r\n- Retain credits
+      to the creator and/or the publisher;\r\n- Retain copyright notices;\r\n- If
+      so stipulated by the licensor retain an URL or hyperlink to an online source
+      of the licensed material"}
+- model: smartlicense.rightsmodule
+  pk: INDICATE_ADAPTIONS
+  fields: {type: oblication, help: If you share your own adaption you must reference
+      the original **licensed material**., legal_definition: 'If you share adaptations
+      of the licensed material you have to indicate that your adaptation bases on
+      the licensed material in a reasonable manner. You have to name the author, copyright
+      owner,  licensor and title (if any) of the material according to the attribution
+      obligation. You have to include the original ISCC in your adapted version. If
+      you share adaptations you must not imply that they are authorised or otherwise
+      endorsed by the licensor.', legal_code: '**Indicate adaptations**: If you share
+      an adapted version of the **licensed material** you have to indicate that your
+      adaptation bases on the licensed material in a reasonable manner. You have to
+      name the author, copyright owner, licensor and title (if any) of the material
+      according to the attribution obligation. If you share adaptations you must not
+      imply that they are authorised or otherwise endorsed by the licensor.'}
+- model: smartlicense.rightsmodule
+  pk: LEND
+  fields: {type: grant, help: You may transfer your licensed material to someone else
+      for a limited time. You may not charge a compensation for the transfer., legal_definition: The
+      temporary surrender of the licensed material to another person or entity without
+      compensation., legal_code: ''}
+- model: smartlicense.rightsmodule
+  pk: NON_COMERCIAL
+  fields: {type: restriction, help: You may not use the material for commercial purposes.,
+    legal_definition: "**\u201CNon-commercial\u201D** means not primarily intended
+      for or directed towards commercial advantage or monetary compensation. For purposes
+      of this smart license, the **resale** of the **licensed material** is non-commercial.",
+    legal_code: '**Non-commercial: You must** not use the material in a way that is
+      primarily intended for or directed towards commercial advantage or monetary
+      compensation. For purposes of this smart license, the **resale** of the **licensed
+      material** is non-commercial.'}
+- model: smartlicense.rightsmodule
+  pk: REPRODUCE
+  fields: {type: grant, help: You may copy the work, legal_definition: 'Copy the licensed
+      material in any medium or format (digital, analogue, tangible, intangible).
+      Making available or distribute the material is not subject of reproduce but
+      share.', legal_code: '**Reproduce**: Copy the **licensed material** in any medium
+      or format (digital, analogue, tangible, intangible).'}
+- model: smartlicense.rightsmodule
+  pk: RESALE
+  fields: {type: grant, help: "You may sell your **smart license** \u201Cas is\u201D
+      to someone else", legal_definition: 'Permanent transfer of the  smart license
+      by the licensee to a third party against compensation. The smart license can
+      only be sold once and in its entirety. By selling it you automatically lose
+      your own rights to use the material automatically. Also, you are obliged to
+      delete your copy(ies) of the **licensed material**.', legal_code: '**Resale**:
+      Permanent transfer of the **smart license** by the **licensee** to a third party
+      against compensation. The smart license can only be sold once and in its entirety.
+      By selling it you automatically lose your own rights to use the material. Also,
+      you are obliged to delete your copy(ies) of the **licensed material**. The resale
+      transaction will be registered on the blockchain.'}
+- model: smartlicense.rightsmodule
+  pk: SHARE
+  fields: {type: grant, help: You may make the material accessible to others in digital
+      form., legal_definition: 'Make the **licensed material** accessible to third
+      parties in digital form. Share means e.g. to publicly display, perform or present
+      the material, to broadcast, stream or make it online available. In case these
+      uses require copying the material the necessary **reproductions** are covered,
+      too.', legal_code: '**Share:** Make the **licensed material** accessible to
+      third parties in digital form. Share means e.g. to publicly display, perform
+      or present the material, to broadcast, stream or make it online available. In
+      case these uses require copying the material the necessary reproductions are
+      covered, too.'}
+- model: smartlicense.activationmode
+  pk: ATTESTATION
+  fields: {description: ''}
+- model: smartlicense.activationmode
+  pk: PAYMENT
+  fields: {description: ''}
+- model: smartlicense.activationmode
+  pk: TOKEN
+  fields: {description: ''}
+- model: smartlicense.template
+  pk: 1
+  fields: {name: B2C, template: "aslkdfjlasdkjf\r\n\r\n{Rechtemodule}\r\n\r\nbalslsl"}
