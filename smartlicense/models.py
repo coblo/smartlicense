@@ -23,9 +23,16 @@ class WalletID(models.Model):
     )
 
     address = models.CharField(
-        help_text='Wallet address',
+        verbose_name='Wallet-ID',
+        help_text='A valid blockchain wallet address.',
         max_length=60,
+    )
 
+    memo = models.CharField(
+        max_length=255,
+        verbose_name='Internal Memo',
+        help_text='Short internal note about this address.',
+        blank=True
     )
 
     class Meta:

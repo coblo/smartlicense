@@ -20,11 +20,10 @@ admin.site.unregister(Group)
 admin.site.login_template = 'login.html'
 
 
-
 @admin.register(WalletID)
 class WalletIDAdmin(admin.ModelAdmin):
-    list_display = 'owner', 'address'
-    fields = 'owner', 'address'
+    list_display = 'address', 'memo', 'owner'
+    fields = 'owner', 'address', 'memo'
     search_fields = ('user__username', 'address')
 
 
