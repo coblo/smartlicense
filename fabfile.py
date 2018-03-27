@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import shutil
 import sys
 from fabric.api import task, local
 sys.path.append(os.path.dirname(__file__))
