@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 import uuid
-import hashlib
+from io import BytesIO
+from os.path import splitext
+
+import os
+from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import UploadedFile
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.conf import settings
+import iscc
 
 
 class WalletID(models.Model):
@@ -27,45 +33,45 @@ class WalletID(models.Model):
     def __str__(self):
         return '{} ({}...)'.format(self.owner, self.address[:6])
 
+
 class MediaContent(models.Model):
 
-    ISCC, ISBN, SHA256 = 'iscc', 'isbn', 'sha256'
-
-    TYPE_CHOICES = (
-        (ISCC, 'Iscc'),
-        (ISBN, 'Isbn'),
-        (SHA256, 'SHA256')
-    )
+    IMAGE_EXTENSIONS = ('jpg', 'png',)
+    TEXT_EXTENSIONS = ('txt', )
+    ALLOWED_EXTENSIONS = IMAGE_EXTENSIONS + TEXT_EXTENSIONS
 
     ident = models.CharField(
-        verbose_name='Content Identifier',
-        max_length=64,
-        blank=True
-    )
-
-    ident_type = models.CharField(
-        verbose_name='Content Identifier Type',
-        choices=TYPE_CHOICES,
-        max_length=8,
-        default=SHA256
+        verbose_name='ISCC',
+        max_length=55,
+        blank=True,
     )
 
     title = models.CharField(
         verbose_name='Content Title',
-        max_length=256,
+        max_length=128,
         blank=False,
+    )
+
+    extra = models.CharField(
+        verbose_name='Extra Info',
+        max_length=128,
+        blank=True,
+        default="",
     )
 
     file = models.FileField(
         verbose_name='Media Content File',
+        help_text='Supported file types: {}'.format(ALLOWED_EXTENSIONS),
         upload_to='mediafiles',
         blank=False,
+        validators=[
+            FileExtensionValidator(allowed_extensions=ALLOWED_EXTENSIONS),
+        ],
     )
 
     class Meta:
         verbose_name = 'Media Content'
         verbose_name_plural = 'Media Contents'
-        unique_together = ('ident', 'ident_type',)
 
     def __str__(self):
         return self.title
@@ -73,18 +79,31 @@ class MediaContent(models.Model):
     def natural_key(self):
         return str(self)
 
-    def get_sha256(self):
-        sha256 = hashlib.sha256()
-        for chunk in self.file.chunks():
-            sha256.update(chunk)
-        return sha256.hexdigest().upper()
+    def clean(self):
+        super().clean()
+        if not self.pk and self.file:
+            if not self.file.name.lower().endswith(self.ALLOWED_EXTENSIONS):
+                raise ValidationError('Please provide a supported format: {}'.format(self.ALLOWED_EXTENSIONS))
+            basename, ext = os.path.splitext(self.file.name)
+            self.file.name = u''.join([str(uuid.uuid4()), ext.lower()])
 
     def save(self, *args, **kwargs):
         if self.file:
-            sha256 = self.get_sha256()
-            new_upload = isinstance(self.file.file, UploadedFile) or self.ident != sha256
+            new_upload = isinstance(self.file.file, UploadedFile)
             if new_upload:
-                self.ident = sha256
+                mid, title, extra = iscc.meta_id(self.title, self.extra)
+                filename, file_extension = splitext(self.file.name)
+                ext = file_extension.lower().lstrip('.')
+                data = self.file.open('rb').read()
+                if ext in self.TEXT_EXTENSIONS:
+                    text = self.file.open().read()
+                    cid = iscc.content_id_text(text)
+                elif ext in self.IMAGE_EXTENSIONS:
+                    cid = iscc.content_id_image(BytesIO(data))
+                did = iscc.data_id(data)
+                iid, tophash = iscc.instance_id(data)
+                iscc_code = '-'.join((mid, cid, did, iid))
+                self.ident = iscc_code
         super().save(*args, *kwargs)
 
 

@@ -58,8 +58,6 @@ class RightsModuleAdmin(admin.ModelAdmin):
     list_display = ('ident', 'help', 'type')
     fields = ('ident', 'type', 'help', 'legal_definition', 'legal_code',)
     list_editable = ('type',)
-    # readonly_fields = ('ident', )
-
     search_fields = ('ident', 'help')
 
 
@@ -70,8 +68,8 @@ class TemplateAdmin(admin.ModelAdmin):
 
 @admin.register(MediaContent)
 class MediaContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'natural_key',)
-    fields = ('ident', 'ident_type', 'title', 'file')
-    readonly_fields = ('ident', 'ident_type')
+    list_display = ('id', 'ident', 'title', 'extra',)
+    fields = ('ident', 'title', 'extra', 'file')
+    readonly_fields = ('ident',)
 
     search_fields = ('title',)

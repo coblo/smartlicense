@@ -3,3 +3,4 @@ pytz
 Fabric3
 django-markup
 PyYAML
+iscc
