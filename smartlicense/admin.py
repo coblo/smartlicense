@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.contrib.auth.models import User, Group
 
 from smartlicense.models import (
     WalletID,
@@ -13,6 +14,8 @@ from smartlicense.models import (
 
 admin.site.site_header = 'SmartLicense Demo'
 admin.site.site_title = 'SmartLicense Demo'
+admin.site.unregister(User)
+admin.site.unregister(Group)
 
 
 @admin.register(WalletID)
