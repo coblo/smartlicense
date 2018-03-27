@@ -18,6 +18,6 @@ from django.urls import path
 from smartlicense import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('demo/', admin.site.urls),
     path('smartlicense/<uuid:ident>/', views.smartlicense_detail)
 ]
