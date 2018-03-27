@@ -39,6 +39,7 @@ def reset():
     local('python manage.py create_demo_user')
     local('python manage.py loaddata fixtures')
     local('python manage.py import_node_addrs')
+    local('python manage.py import_demo_content')
 
 
 @task
