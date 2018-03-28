@@ -19,6 +19,6 @@ def rights_profile_detail(request, codes):
     template = Template(tpl.template)
     context = Context({'rights_modules': rights_modules,})
     data = template.render(context)
-    inner_html = markdown.markdown(data)
+    inner_html = markdown.markdown(data, extensions=['markdown.extensions.abbr'])
     outer_context = {'content': inner_html}
     return render(request, 'rights_profile.html', outer_context)

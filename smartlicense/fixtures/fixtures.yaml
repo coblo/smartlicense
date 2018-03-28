@@ -75,8 +75,8 @@
       easy-to-use license construction kit that even legal laypersons can handle,
     template: "**This Content Blockchain Smart License is dedicated to the public
       domain under the [CC0 Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/legalcode).**\r\n\r\n#
-      Content Blockchain B2C Smart License\r\n\r\n{% for rm in rights_modules %}-{{
-      rm.short_code }}{% endfor %} - Experimental Version 1.0\r\n\r\n## Preface\r\n\r\nToday,
+      Content Blockchain B2C Smart License\r\n\r\n{% for rm in rights_modules %}{{
+      rm.short_code }}-{% endfor %}Experimental Version 1.0\r\n\r\n## Preface\r\n\r\nToday,
       professional and commercial digital content licensing is a complex issue mostly
       dealt with by specialized lawyers. The idea behind smart licenses is to provide
       an easy-to-use license construction kit that even legal laypersons can handle.
@@ -145,4 +145,5 @@
       License is deemed unenforceable, it shall be automatically reformed to the minimum
       extent necessary to make it enforceable. If the provision cannot be reformed,
       it shall be severed from this License without affecting the enforceability of
-      the remaining terms and conditions."}
+      the remaining terms and conditions.\r\n\r\n{% for rm in rights_modules %}\r\n*[{{
+      rm.short_code }}]: {{ rm.help }}\r\n{% endfor %}"}
