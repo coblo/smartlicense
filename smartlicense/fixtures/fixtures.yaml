@@ -95,4 +95,5 @@
   fields: {description: ''}
 - model: smartlicense.template
   pk: 1
-  fields: {name: B2C, template: "aslkdfjlasdkjf\r\n\r\n{Rechtemodule}\r\n\r\nbalslsl"}
+  fields: {name: Content Blockchain B2C Smart License, description: An easy-to-use
+      license construction kit that even legal laypersons can handle, template: "aslkdfjlasdkjf\r\n\r\n{Rechtemodule}\r\n\r\nbalslsl"}
