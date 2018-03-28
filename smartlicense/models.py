@@ -163,23 +163,23 @@ class RighsModuleManager(models.Manager):
 class RightsModule(models.Model):
 
     ADAPT = 'ADAPT'
-    LEND = 'LEND'
     REPRODUCE = 'REPRODUCE'
     RESALE = 'RESALE'
     SHARE = 'SHARE'
     NON_COMMERCIAL = 'NON_COMERCIAL'
     ATTRIBUTION = 'ATTRIBUTION'
     INDICATE_ADAPTIONS = 'INDICATE_ADAPTIONS'
+    INDUSTRIAL_PROPERTY_RIGHTS = 'INDUSTRIAL_PROPERTY_RIGHTS'
 
     RIGHTS_MODULES = (
         (ADAPT, 'ADAPT'),
-        (LEND, 'LEND'),
         (REPRODUCE, 'REPRODUCE'),
         (RESALE, 'RESALE'),
         (SHARE, 'SHARE'),
         (ATTRIBUTION, 'ATTRIBUTION'),
         (INDICATE_ADAPTIONS, 'INDICATE_ADAPTIONS'),
-        (NON_COMMERCIAL, 'NON_COMERCIAL')
+        (NON_COMMERCIAL, 'NON_COMERCIAL'),
+        (INDUSTRIAL_PROPERTY_RIGHTS, 'INDUSTRIAL_PROPERTY_RIGHTS')
     )
 
     GRANT, RESTRICTION, OBLIGATION = 'grant', 'restriction', 'oblication'
@@ -205,17 +205,20 @@ class RightsModule(models.Model):
         default=GRANT,
     )
 
-    help = models.TextField(
-        help_text='Human readable definition',
+    short_code = models.CharField(
+        max_length=2,
+        verbose_name='Short Code',
+        help_text='Short two letter code for Rights Module',
+        default='',
+    )
+
+    help = models.CharField(
+        max_length=255,
+        help_text='Short Human readable definition',
         blank=True
     )
 
-    legal_definition = models.TextField(
-        help_text='Legal definition',
-        blank=True
-    )
-
-    legal_code = models.TextField(
+    legal_code = MartorField(
         help_text='Legal text for SmartLicense',
         blank=True,
     )
@@ -233,9 +236,9 @@ class RightsModule(models.Model):
 class Template(models.Model):
 
     code = models.CharField(
-        max_length=8,
+        max_length=16,
         verbose_name='Code',
-        help_text='A short code (8 chars) as identifier for the template.',
+        help_text='A short code (16 chars) as identifier for the template.',
         unique=True
     )
 

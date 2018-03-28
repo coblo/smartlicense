@@ -63,7 +63,7 @@ class ActivationModeAdmin(admin.ModelAdmin):
 @admin.register(RightsModule)
 class RightsModuleAdmin(admin.ModelAdmin):
     list_display = ('ident', 'help', 'type')
-    fields = ('ident', 'type', 'help', 'legal_definition', 'legal_code',)
+    fields = ('ident', 'short_code', 'type', 'help', 'legal_code',)
     list_editable = ('type',)
     search_fields = ('ident', 'help')
 
@@ -74,6 +74,7 @@ class TemplateAdmin(admin.ModelAdmin):
     formfield_overrides = {
         TextField: {'widget': AdminMartorWidget},
     }
+
 
 
 @admin.register(MediaContent)
