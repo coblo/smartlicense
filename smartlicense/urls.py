@@ -21,5 +21,6 @@ from smartlicense import views
 urlpatterns = [
     path('demo/', admin.site.urls),
     path('smartlicense/<uuid:ident>/', views.smartlicense_detail),
+    path('rights-profile/<str:codes>/', views.rights_profile_detail),
     url(r'^martor/', include('martor.urls')),
 ]

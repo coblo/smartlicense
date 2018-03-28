@@ -148,7 +148,7 @@ class ActivationMode(models.Model):
         return self.ident
 
 
-class RighsModuleManager(models.Manager):
+class RighsModuleQuerySet(models.QuerySet):
 
     def grants(self):
         return self.filter(type=RightsModule.GRANT)
@@ -156,7 +156,7 @@ class RighsModuleManager(models.Manager):
     def restrictions(self):
         return self.filter(type=RightsModule.RESTRICTION)
 
-    def oblications(self):
+    def obligations(self):
         return self.filter(type=RightsModule.OBLIGATION)
 
 
@@ -223,7 +223,7 @@ class RightsModule(models.Model):
         blank=True,
     )
 
-    objects = RighsModuleManager()
+    objects = RighsModuleQuerySet.as_manager()
 
     class Meta:
         verbose_name = 'Rights Module'

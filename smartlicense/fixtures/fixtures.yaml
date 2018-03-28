@@ -76,26 +76,26 @@
     template: "**This Content Blockchain Smart License is dedicated to the public
       domain under the [CC0 Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/legalcode).**\r\n\r\n#
       Content Blockchain B2C Smart License\r\n\r\n{% for rm in rights_modules %}-{{
-      rm.short_code }}{% endfor %}\r\n\r\n## Preface\r\n\r\nToday, professional and
-      commercial digital content licensing is a complex issue mostly dealt with by
-      specialized lawyers. The idea behind smart licenses is to provide an easy-to-use
-      license construction kit that even legal laypersons can handle. In our smart
-      license generator any interested rights owner (licensor) can choose from a limited
-      number of rights modules. Their combination, supplemented by some standard terms
-      and conditions form the content of the smart license, i.e. the use rights, that
-      the licensor wants to grant You (the licensee). \r\n\r\nThe smart licenses,
-      alongside with basic metadata are publicly registered on the Content Blockchain
-      in a secure and reliable, open and transparent, automated and machine-readable
-      way.\r\n\r\nFor the avoidance of doubt, this smart license does not apply where
-      a license is not needed (e.g. where limitations of copyrights apply like the
-      quotation right). Nothing in this license shall be construed as excluding or
-      limiting statutory freedoms allowed for by exceptions and limitations, fair
-      use, fair dealing and related doctrines.\r\n\r\n**Subject to the terms and conditions
-      of this smart license, the Licensor hereby offers You a non-exclusive worldwide
-      license for the duration of the copyright to use the licensed material under
-      its terms and conditions. By performing the act that the licensor has defined
-      as a declaration of acceptance to his offer, You accept and agree to be bound
-      by the terms and conditions of this smart license.**\r\n\r\n## 1. Definitions\r\n\r\n**Content
+      rm.short_code }}{% endfor %} - Experimental Version 1.0\r\n\r\n## Preface\r\n\r\nToday,
+      professional and commercial digital content licensing is a complex issue mostly
+      dealt with by specialized lawyers. The idea behind smart licenses is to provide
+      an easy-to-use license construction kit that even legal laypersons can handle.
+      In our smart license generator any interested rights owner (licensor) can choose
+      from a limited number of rights modules. Their combination, supplemented by
+      some standard terms and conditions form the content of the smart license, i.e.
+      the use rights, that the licensor wants to grant You (the licensee). \r\n\r\nThe
+      smart licenses, alongside with basic metadata are publicly registered on the
+      Content Blockchain in a secure and reliable, open and transparent, automated
+      and machine-readable way.\r\n\r\nFor the avoidance of doubt, this smart license
+      does not apply where a license is not needed (e.g. where limitations of copyrights
+      apply like the quotation right). Nothing in this license shall be construed
+      as excluding or limiting statutory freedoms allowed for by exceptions and limitations,
+      fair use, fair dealing and related doctrines.\r\n\r\n**Subject to the terms
+      and conditions of this smart license, the Licensor hereby offers You a non-exclusive
+      worldwide license for the duration of the copyright to use the licensed material
+      under its terms and conditions. By performing the act that the licensor has
+      defined as a declaration of acceptance to his offer, You accept and agree to
+      be bound by the terms and conditions of this smart license.**\r\n\r\n## 1. Definitions\r\n\r\n**Content
       Blockchain:** Technical system to enable rights owners like **creators** or
       publishers to license content to users and to register the license transactions
       publicly and persistently on a blockchain technology.\r\n\r\n**Creator:** The
@@ -116,20 +116,20 @@
       of rules that apply for the use of the **licensed material**.\r\n\r\n## 2. Licensing
       conditions\r\n\r\n**You** may use the **licensed material** to the extend and
       under the conditions defined hereafter:\r\n\r\n### 2.1.  Licensed Rights (**rights
-      modules**)\r\n\r\n{% for grant in rights_modules.grants %}{{ grant.legal_code
-      }}{% endfor %}\r\n\r\nAll rights that are not mentioned above are reserved.\r\n\r\n###
-      2.2 Restrictions\r\n\r\n{% for restriction in rights_modules.restrictions %}{{
-      restriction.lega_code }}{% endfor %}\r\n\r\n### 2.3 Obligations\r\n\r\n{% for
-      obligation in rights_modules.obligations %}{{ obligation.legal_code }}{% endfor
-      %}\r\n\r\n## 3. Disclaimer of Warranties and Limitation of Liability\r\n\r\n**Unless
-      otherwise separately undertaken by the Licensor, to the extent possible, the
-      licensor offers the licensed material as-is and as-available, and makes no representations
+      modules**)\r\n\r\n{% for rm in rights_modules.grants %}\r\n\r\n{{ rm.legal_code
+      }}\r\n{% endfor %}\r\n\r\nAll rights that are not mentioned above are reserved.\r\n\r\n###
+      2.2 Restrictions\r\n\r\n{% for rm in rights_modules.restrictions %}\r\n\r\n{{
+      rm.legal_code }}\r\n{% endfor %}\r\n\r\n### 2.3 Obligations\r\n\r\n{% for rm
+      in rights_modules.obligations %}\r\n\r\n{{ rm.legal_code }}\r\n{% endfor %}\r\n\r\n##
+      3. Disclaimer of Warranties and Limitation of Liability\r\n\r\n**Unless otherwise
+      separately undertaken by the Licensor, to the extent possible, the licensor
+      offers the licensed material as-is and as-available, and makes no representations
       or warranties of any kind concerning the licensed material, whether express,
       implied, statutory, or other. This includes, without limitation, warranties
       of title, merchantability, fitness for a particular purpose, non-infringement,
       absence of latent or other defects, accuracy, or the presence or absence of
       errors, whether or not known or discoverable. Where disclaimers of warranties
-      are not allowed in full or in part, this disclaimer may not apply to You.``\r\n\r\n**To
+      are not allowed in full or in part, this disclaimer may not apply to You.**\r\n\r\n**To
       the extent possible, in no event will the licensor be liable to you on any legal
       theory (including, without limitation, negligence) or otherwise for any direct,
       special, indirect, incidental, consequential, punitive, exemplary, or other
