@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'smartlicense.apps.SmartLicenseConfig',
     'django_markup',
+    'martor',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Mator
+MARTOR_ENABLE_CONFIGS = {
+    'imgur': 'false',    # to enable/disable imgur/custom uploader.
+    'mention': 'false',  # to enable/disable mention
+    'jquery': 'true',    # to include/revoke jquery (require for admin default django)
+}
 
 # Custom project settings
 NODE_IP = '127.0.0.1'

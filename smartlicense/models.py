@@ -12,6 +12,7 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.conf import settings
 import iscc
+from martor.models import MartorField
 
 
 class WalletID(models.Model):
@@ -232,7 +233,7 @@ class RightsModule(models.Model):
 class Template(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=255)
-    template = models.TextField()
+    template = MartorField()
 
     def __str__(self):
         return self.name

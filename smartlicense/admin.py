@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
+from django.db.models import TextField
+from martor.widgets import AdminMartorWidget
 
 from smartlicense.models import (
     WalletID,
@@ -69,6 +71,9 @@ class RightsModuleAdmin(admin.ModelAdmin):
 @admin.register(Template)
 class TemplateAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
+    formfield_overrides = {
+        TextField: {'widget': AdminMartorWidget},
+    }
 
 
 @admin.register(MediaContent)

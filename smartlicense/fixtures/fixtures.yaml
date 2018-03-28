@@ -96,4 +96,75 @@
 - model: smartlicense.template
   pk: 1
   fields: {name: Content Blockchain B2C Smart License, description: An easy-to-use
-      license construction kit that even legal laypersons can handle, template: "aslkdfjlasdkjf\r\n\r\n{Rechtemodule}\r\n\r\nbalslsl"}
+      license construction kit that even legal laypersons can handle, template: "**This
+      Content Blockchain Smart License is dedicated to the public domain under the
+      [CC0 Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/legalcode).**\r\n\r\n#
+      Content Blockchain B2C Smart License\r\n\r\n## Preface\r\n\r\nToday, professional
+      and commercial digital content licensing is a complex issue mostly dealt with
+      by specialized lawyers. The idea behind smart licenses is to provide an easy-to-use
+      license construction kit that even legal laypersons can handle. In our smart
+      license generator any interested rights owner (licensor) can choose from a limited
+      number of rights modules. Their combination, supplemented by some standard terms
+      and conditions form the content of the smart license, i.e. the use rights, that
+      the licensor wants to grant You (the licensee). \r\n\r\nThe smart licenses,
+      alongside with basic metadata are publicly registered on the Content Blockchain
+      in a secure and reliable, open and transparent, automated and machine-readable
+      way.\r\n\r\nFor the avoidance of doubt, this smart license does not apply where
+      a license is not needed (e.g. where limitations of copyrights apply like the
+      quotation right). Nothing in this license shall be construed as excluding or
+      limiting statutory freedoms allowed for by exceptions and limitations, fair
+      use, fair dealing and related doctrines.\r\n\r\n**Subject to the terms and conditions
+      of this smart license, the Licensor hereby offers You a non-exclusive worldwide
+      license for the duration of the copyright to use the licensed material under
+      its terms and conditions. By performing the act that the licensor has defined
+      as a declaration of acceptance to his offer, You accept and agree to be bound
+      by the terms and conditions of this smart license.**\r\n\r\n## 1. Definitions\r\n\r\n**Content
+      Blockchain:** Technical system to enable rights owners like **creators** or
+      publishers to license content to users and to register the license transactions
+      publicly and persistently on a blockchain technology.\r\n\r\n**Creator:** The
+      person who created the **licensed material** (e.g. a composer or an author).\r\n\r\n**ISCC:**
+      International Standard Content Code - a unique ID (content identifier) that
+      defines the **Licensed material** as a machine-readable code.\r\n\r\n**Licensee/You:**
+      The individual or entity exercising the rights under this smart license. **Your**
+      has a corresponding meaning.\r\n\r\n**Licensed material:** The artistic, scientific
+      or literary work, database, or other copyright protected material to which the
+      licensor applied this smart license. The licensed material is identified by
+      a unique **ISCC**.\r\n\r\n**Licensor:** The individual(s) or entity(ies) granting
+      rights under this license. The licensor can be the **creator** or another copyright
+      owner (like e.g. a publisher).\r\n\r\n**Rights Module:** A standardized section
+      of the **smart license** that describes a certain kind of use. The **licensor**
+      can choose from a number of rights modules to define the scope of his/her **smart
+      license**.\r\n\r\n**Rights Profile:** The combination of **rights modules**
+      the **licensor** chose for his smart license.\r\n**Smart license:** The sum
+      of rules that apply for the use of the **licensed material**.\r\n\r\n## 2. Licensing
+      conditions\r\n\r\n**You** may use the **licensed material** to the extend and
+      under the conditions defined hereafter:\r\n\r\n### 2.1.  Licensed Rights (**rights
+      modules**)\r\n\r\n{% for grant in grants %}{{ grant }}{% endfor %}\r\n\r\nAll
+      rights that are not mentioned above are reserved.\r\n\r\n### 2.2 Restrictions\r\n\r\n{%
+      for restriction in restrictions %}{{ restriction }}{% endfor %}\r\n\r\n### 2.3
+      Obligations\r\n\r\n{% for obligation in obligations %}{{ obligation }}{% endfor
+      %}\r\n\r\n## 3. Disclaimer of Warranties and Limitation of Liability\r\n\r\n**Unless
+      otherwise separately undertaken by the Licensor, to the extent possible, the
+      licensor offers the licensed material as-is and as-available, and makes no representations
+      or warranties of any kind concerning the licensed material, whether express,
+      implied, statutory, or other. This includes, without limitation, warranties
+      of title, merchantability, fitness for a particular purpose, non-infringement,
+      absence of latent or other defects, accuracy, or the presence or absence of
+      errors, whether or not known or discoverable. Where disclaimers of warranties
+      are not allowed in full or in part, this disclaimer may not apply to You.``\r\n\r\n**To
+      the extent possible, in no event will the licensor be liable to you on any legal
+      theory (including, without limitation, negligence) or otherwise for any direct,
+      special, indirect, incidental, consequential, punitive, exemplary, or other
+      losses, costs, expenses, or damages arising out of this smart license or use
+      of the licensed material, even if the licensor has been advised of the possibility
+      of such losses, costs, expenses, or damages. Where a limitation of liability
+      is not allowed in full or in part, this limitation may not apply to You.**\r\n\r\nThe
+      disclaimer of warranties and limitation of liability provided above shall be
+      interpreted in a manner that, to the extent possible, most closely approximates
+      an absolute disclaimer and waiver of all liability.\r\n\r\n## 4. General Terms
+      and Conditions\r\n\r\nThe Licensor shall not be bound by any additional or different
+      terms or conditions.\r\n\r\nTo the extent possible, if any provision of this
+      License is deemed unenforceable, it shall be automatically reformed to the minimum
+      extent necessary to make it enforceable. If the provision cannot be reformed,
+      it shall be severed from this License without affecting the enforceability of
+      the remaining terms and conditions."}
