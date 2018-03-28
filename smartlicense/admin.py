@@ -70,7 +70,7 @@ class RightsModuleAdmin(admin.ModelAdmin):
 
 @admin.register(Template)
 class TemplateAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
+    list_display = 'code', 'name', 'description'
     formfield_overrides = {
         TextField: {'widget': AdminMartorWidget},
     }

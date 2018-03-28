@@ -231,9 +231,34 @@ class RightsModule(models.Model):
 
 
 class Template(models.Model):
-    name = models.CharField(max_length=64)
-    description = models.CharField(max_length=255)
-    template = MartorField()
+
+    code = models.CharField(
+        max_length=8,
+        verbose_name='Code',
+        help_text='A short code (8 chars) as identifier for the template.',
+        unique=True
+    )
+
+    name = models.CharField(
+        max_length=64,
+        verbose_name='Name',
+        help_text="A human readable title for the Smart License template."
+    )
+
+    description = models.CharField(
+        max_length=255,
+        verbose_name='Description',
+        help_text="A short description of Smart License template."
+    )
+
+    template = MartorField(
+        verbose_name='Template',
+        help_text="The tamplate data itself (Markdown/Jinja)."
+    )
+
+    class Meta:
+        verbose_name = "Smart License Template"
+        verbose_name_plural = "Smart License Templates"
 
     def __str__(self):
         return self.name
