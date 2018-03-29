@@ -14,7 +14,11 @@ class Command(BaseCommand):
         addrs = client.getaddresses()
         for addr in addrs:
             print('Import WalletID:', addr)
-            wid, created = WalletID.objects.get_or_create(owner=user_obj, address=addr)
+            wid, created = WalletID.objects.get_or_create(
+                owner=user_obj,
+                address=addr,
+                memo='Demo User Wallet'
+            )
             if created:
                 print('Imported WalletID:', wid)
             else:
