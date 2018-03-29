@@ -31,7 +31,7 @@
       Patents and trademarks may only be used to the limited extent necessary to allow
       exercise of the rights licensed by this **smart license**.'}
 - model: smartlicense.rightsmodule
-  pk: NON_COMERCIAL
+  pk: NON_COMMERCIAL
   fields: {type: restriction, short_code: NC, help: You may not use the material for
       commercial purposes., legal_code: '**Non-commercial: You** must not use the
       material in a way that is primarily intended for or directed towards commercial
