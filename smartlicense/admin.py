@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from django.db.models import TextField
+from django.utils.safestring import mark_safe
 from django_object_actions import DjangoObjectActions
 from martor.widgets import AdminMartorWidget
 
@@ -42,10 +43,10 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
             'fields': ('activation_modes', 'rights_modules'),
         }),
         ('Blockchain Info', {
-            'fields': ('txid',)
+            'fields': ('admin_txid',)
         })
     )
-    readonly_fields = ('ident', 'txid')
+    readonly_fields = ('ident', 'admin_txid')
     autocomplete_fields = (
         'licensors', 'materials', 'activation_modes', 'rights_modules')
 
@@ -59,12 +60,18 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
         return ','.join(obj.materials.values_list('title', flat=True))
     admin_materials.short_description = 'Licensed Content'
 
+    def admin_txid(self, obj):
+        if obj.txid:
+            url = 'http://explorer.coblo.net/tx/{}'.format(obj.txid)
+            link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
+            return mark_safe(link)
+    admin_txid.short_description = 'Transaction-ID'
+
     def publish(self, request, obj):
         if not obj.txid:
             obj.publish(save=True)
     publish.label = 'Publish'
     publish.short_description = 'Publish Smart License Offer to Content Blockchain'
-
 
 
 @admin.register(ActivationMode)
