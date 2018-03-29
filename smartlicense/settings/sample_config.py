@@ -7,3 +7,4 @@ NODE_PWD = 'testpassword'
 
 STREAM_SMART_LICENSE = 'smart-license'
 STREAM_SMART_LICENSE_ATTESTATION = 'smart-license-attestation'
+STREAM_ISCC = 'testiscc'
