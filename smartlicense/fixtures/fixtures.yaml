@@ -1,60 +1,60 @@
 - model: smartlicense.rightsmodule
   pk: ADAPT
-  fields: {type: grant, short_code: AD, help: You may modify the licensed material
-      and **share** your modified version., legal_code: '**Adapt: You** may modify,
-      alter or change the licensed material in any way (e.g. remixing, transforming,
+  fields: {type: grant, short_code: AD, help: Adapt - You may modify the licensed
+      material and **share** your modified version., legal_code: '**Adapt: You** may
+      modify, alter or change the licensed material in any way (e.g. remixing, transforming,
       shortening, translating, synchronizing, combining with other material). Adaptations
       may also be **shared**.'}
 - model: smartlicense.rightsmodule
   pk: ATTRIBUTION
-  fields: {type: obligation, short_code: AT, help: If the licensed material contains
-      references to the creator or publisher or copyright notices you must not remove
-      them., legal_code: "**Attribution: You** have to pertain notices that are supplied
-      with the **licensed material** when you **share** or **distribute** it. Under
-      this obligation **you** have to: \r\n\r\n- Retain credits to the **creator**
+  fields: {type: obligation, short_code: AT, help: Attribution - If the licensed material
+      contains references to the creator or publisher or copyright notices you must
+      not remove them., legal_code: "**Attribution: You** have to pertain notices
+      that are supplied with the **licensed material** when you **share** or **distribute**
+      it. Under this obligation **you** have to: \r\n\r\n- Retain credits to the **creator**
       and/or the copyright owner;\r\n- Retain copyright notices;\r\n- If so stipulated
       by the **licensor** retain an URL or hyperlink to an online source of the **licensed
       material**."}
 - model: smartlicense.rightsmodule
   pk: INDICATE_ADAPTIONS
-  fields: {type: obligation, short_code: IA, help: If you share your own adaption
-      you must reference the original **licensed material**., legal_code: '**Indicate
+  fields: {type: obligation, short_code: IA, help: Indicate Adaptions - If you share
+      your own adaption you must reference the original **licensed material**., legal_code: '**Indicate
       adaptations:** If **you** share an adapted version of the **licensed material
       you** have to indicate that your **adaptation** bases on the **licensed material**
       in a reasonable manner. You have to name the **creator**, copyright owner and
       **licensor** of the material according to the **attribution** obligation.'}
 - model: smartlicense.rightsmodule
   pk: INDUSTRIAL_PROPERTY_RIGHTS
-  fields: {type: restriction, short_code: IP, help: Patent and trademark rights are
-      not licensed under this **smart license.**, legal_code: '**Industrial property
-      rights:** Patent and trademark rights are not licensed under this **smart license**.
-      Patents and trademarks may only be used to the limited extent necessary to allow
-      exercise of the rights licensed by this **smart license**.'}
+  fields: {type: restriction, short_code: IP, help: No Industrial Patents - Patent
+      and trademark rights are not licensed under this **smart license.**, legal_code: '**Industrial
+      property rights:** Patent and trademark rights are not licensed under this **smart
+      license**. Patents and trademarks may only be used to the limited extent necessary
+      to allow exercise of the rights licensed by this **smart license**.'}
 - model: smartlicense.rightsmodule
   pk: NON_COMMERCIAL
-  fields: {type: restriction, short_code: NC, help: You may not use the material for
-      commercial purposes., legal_code: '**Non-commercial: You** must not use the
-      material in a way that is primarily intended for or directed towards commercial
-      advantage or monetary compensation. For purposes of this smart license, the
-      **resale** of the **licensed material** is non-commercial.'}
+  fields: {type: restriction, short_code: NC, help: Non-Commercial - You may not use
+      the material for commercial purposes., legal_code: '**Non-commercial: You**
+      must not use the material in a way that is primarily intended for or directed
+      towards commercial advantage or monetary compensation. For purposes of this
+      smart license, the **resale** of the **licensed material** is non-commercial.'}
 - model: smartlicense.rightsmodule
   pk: REPRODUCE
-  fields: {type: grant, short_code: RP, help: You may copy the work, legal_code: '**Reproduce:
+  fields: {type: grant, short_code: RP, help: Reproduce - You may copy the work, legal_code: '**Reproduce:
       You** may copy the **licensed material** in any medium or format (digital, analogue,
       tangible, intangible). Making available or distribute the material is not subject
       of the **reproduce module.**'}
 - model: smartlicense.rightsmodule
   pk: RESALE
-  fields: {type: grant, short_code: RS, help: "You may sell your **smart license**
-      \u201Cas is\u201D to someone else", legal_code: '**Resale: You** may permanently
-      transfer the **smart license** to a third party against compensation. The **smart
-      license** can only be resold once and in its entirety. By reselling it **you**
-      automatically lose your own rights to use the **licensed material**. Also, **you**
-      are obliged to delete **your** copy(ies) of the **licensed material**. The **resale**
-      transaction will be registered on the blockchain.'}
+  fields: {type: grant, short_code: RS, help: "Resale - You may sell your **smart
+      license** \u201Cas is\u201D to someone else", legal_code: '**Resale: You** may
+      permanently transfer the **smart license** to a third party against compensation.
+      The **smart license** can only be resold once and in its entirety. By reselling
+      it **you** automatically lose your own rights to use the **licensed material**.
+      Also, **you** are obliged to delete **your** copy(ies) of the **licensed material**.
+      The **resale** transaction will be registered on the blockchain.'}
 - model: smartlicense.rightsmodule
   pk: SHARE
-  fields: {type: grant, short_code: SH, help: You may make the material accessible
+  fields: {type: grant, short_code: SH, help: Share - You may make the material accessible
       to others in digital form., legal_code: '**Share: You** may make the **licensed
       material** accessible to third parties in digital form. Share means e.g. to
       publicly display, perform or present the material, to broadcast, post online,
