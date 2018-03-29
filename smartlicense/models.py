@@ -317,14 +317,16 @@ class SmartLicense(models.Model):
         on_delete=models.CASCADE
     )
 
-    activation_modes = models.ManyToManyField(
+    transaction_model = models.ForeignKey(
         'smartlicense.ActivationMode',
-        help_text='ActivationModes accepted by the SmartLicense. If no '
-                  'ActivationMode is given the SmartLicense is purely '
+        verbose_name='Transaction Model',
+        help_text='Transaction Model accepted by the SmartLicense. If no '
+                  'Transaction Model is given the SmartLicense is purely '
                   'informational and there is no defined way to close a '
                   'license contract on-chain.',
         related_name='+',
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
 
     rights_modules = models.ManyToManyField(
@@ -360,7 +362,7 @@ class SmartLicense(models.Model):
         data = dict(
             template=sha256(self.template.template.encode('utf-8')).hexdigest(),
             rights_modules=list(self.rights_modules.values_list('ident', flat=True)),
-            transaction_models=list(self.activation_modes.values_list('ident', flat=True)),
+            transaction_models=[self.transaction_model.ident],
         )
         wrapped = {'json': data}
         return wrapped

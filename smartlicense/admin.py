@@ -28,7 +28,15 @@ admin.site.login_template = 'login.html'
 class WalletIDAdmin(admin.ModelAdmin):
     list_display = 'address', 'memo', 'owner'
     fields = 'owner', 'address', 'memo'
+    readonly_fields = 'owner', 'address'
     search_fields = ('user__username', 'address')
+    actions = None
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(SmartLicense)
@@ -40,14 +48,14 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
             'fields': ('ident', 'memo', 'template', 'licensor', 'material'),
         }),
         ('SmartLicense Settings', {
-            'fields': ('activation_modes', 'rights_modules'),
+            'fields': ('transaction_model', 'rights_modules'),
         }),
         ('Blockchain Info', {
             'fields': ('admin_txid',)
         })
     )
     readonly_fields = ('ident', 'admin_txid')
-    autocomplete_fields = ('activation_modes', 'rights_modules')
+    autocomplete_fields = ('rights_modules', )
 
     change_actions = ('publish',)
 
@@ -61,7 +69,7 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
 
     def admin_txid(self, obj):
         if obj.txid:
-            url = 'http://explorer.coblo.net/tx/{}'.format(obj.txid)
+            url = 'http://explorer.coblo.net/tx/{}?raw'.format(obj.txid)
             link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
             return mark_safe(link)
     admin_txid.short_description = 'Transaction-ID'
@@ -81,7 +89,16 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
 @admin.register(ActivationMode)
 class ActivationModeAdmin(admin.ModelAdmin):
     list_display = ('ident', 'description',)
-    search_fields = ('ident',)
+    actions = None
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def save_model(self, request, obj, form, change):
+        pass
 
 
 @admin.register(RightsModule)
@@ -90,14 +107,36 @@ class RightsModuleAdmin(admin.ModelAdmin):
     fields = ('ident', 'short_code', 'type', 'help', 'legal_code',)
     list_editable = ('type',)
     search_fields = ('ident', 'help')
+    actions = None
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def save_model(self, request, obj, form, change):
+        pass
 
 
 @admin.register(Template)
 class TemplateAdmin(admin.ModelAdmin):
     list_display = 'code', 'name', 'description'
+    actions = None
     formfield_overrides = {
         TextField: {'widget': AdminMartorWidget},
     }
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def save_model(self, request, obj, form, change):
+        pass
+
+
 
 
 @admin.register(MediaContent)
@@ -107,6 +146,7 @@ class MediaContentAdmin(admin.ModelAdmin):
     readonly_fields = ('ident',)
 
     search_fields = ('title', 'name')
+
 
 
 @admin.register(Attestation)
@@ -129,7 +169,7 @@ class AttestationAdmin(DjangoObjectActions, admin.ModelAdmin):
 
     def admin_txid(self, obj):
         if obj.txid:
-            url = 'http://explorer.coblo.net/tx/{}'.format(obj.txid)
+            url = 'http://explorer.coblo.net/tx/{}?raw'.format(obj.txid)
             link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
             return mark_safe(link)
     admin_txid.short_description = 'Transaction-ID'
