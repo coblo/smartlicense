@@ -144,6 +144,7 @@ NODE_USER = 'testuser'
 NODE_PWD = 'testpassword'
 
 STREAM_SMART_LICENSE = 'test'
+STREAM_SMART_LICENSE_ATTESTATION = 'test'
 
 
 # Make sure deployment overrides settings

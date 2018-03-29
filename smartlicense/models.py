@@ -16,6 +16,7 @@ import iscc
 from martor.models import MartorField
 
 from smartlicense.utils import get_client
+from smartlicense.validators import validate_address
 
 
 class WalletID(models.Model):
@@ -277,11 +278,18 @@ class Template(models.Model):
 class SmartLicense(models.Model):
 
     ident = models.UUIDField(
-        verbose_name='Identifier',
+        verbose_name='Smart License ID',
         help_text='Identifier of this specific SmartLicense offer',
         primary_key=True,
         default=uuid.uuid4,
         editable=False
+    )
+
+    memo = models.CharField(
+        verbose_name='Internal Memo',
+        help_text='Short internal memo for Smart License that helps you identify this license offer',
+        max_length=255,
+        blank=False
     )
 
     template = models.ForeignKey(
@@ -290,22 +298,23 @@ class SmartLicense(models.Model):
         on_delete=models.CASCADE,
     )
 
-    licensors = models.ManyToManyField(
+    licensor = models.ForeignKey(
         'smartlicense.WalletID',
-        verbose_name='Licensor(s)',
-        help_text='Wallet-ID(s) of licensor(s). By default the stream '
-                  'publisher(s) Wallet-ID(s) are assumed to be the '
-                  'licensor(s). This assumption can be overridden by '
+        verbose_name='Licensor',
+        help_text='Wallet-ID of licensor. By default the stream '
+                  'publisher Wallet-ID is assumed to be the '
+                  'licensor. This assumption can be overridden by '
                   'providing an explicit list of one or more Wallet-IDs. '
                   'Future extensibility: licensor_identifier_type.',
-        related_name='wallet_id_smartlicenses',
-        blank=True,
+        on_delete=models.CASCADE
     )
 
-    materials = models.ManyToManyField(
+    material = models.ForeignKey(
         'smartlicense.MediaContent',
+        verbose_name='Licensed Material',
         help_text='The materials to be licensed by this SmartLicense',
         related_name='material_smartlicenses',
+        on_delete=models.CASCADE
     )
 
     activation_modes = models.ManyToManyField(
@@ -340,6 +349,9 @@ class SmartLicense(models.Model):
         verbose_name = "Smart License Offer"
         verbose_name_plural = "Smart License Offers"
 
+    def __str__(self):
+        return self.memo
+
     def get_absolute_url(self):
         return '/smartlicense/%s/' % self.ident
 
@@ -355,12 +367,60 @@ class SmartLicense(models.Model):
 
     def publish(self, save=True):
         client = get_client()
-        materials = list(self.materials.values_list('ident', flat=True))
-        keys = [str(self.ident)] + materials
-        txid = client.publish(
+        keys = [str(self.ident), self.material.ident]
+        txid = client.publishfrom(
+            self.licensor.address,
             settings.STREAM_SMART_LICENSE,
             keys,
             self.to_primitive()
+        )
+        if save:
+            self.txid = txid
+            self.save()
+        return txid
+
+
+class Attestation(models.Model):
+
+    smart_license = models.ForeignKey(
+        SmartLicense,
+        verbose_name='Smart License',
+        help_text='Choose Smart License to create an attestation for.',
+        on_delete=models.CASCADE
+    )
+
+    licensee = models.CharField(
+        verbose_name='For',
+        help_text='Walled-ID of user to whom you want to attest the Smart License',
+        max_length=64,
+        validators=[validate_address]
+    )
+
+    txid = models.CharField(
+        verbose_name='Transaction-ID',
+        help_text='Blockchain TX-ID of Attestation',
+        max_length=64,
+        blank=True,
+        default=''
+    )
+
+    class Meta:
+        verbose_name = 'Smart License Attestation'
+        verbose_name_plural = 'Smart License Attestations'
+
+    def publish(self, save=True):
+        client = get_client()
+        smart_license_id = str(self.smart_license.ident)
+        licensor = self.smart_license.licensor.address
+        licensee = self.licensee
+        data = {
+            'json': {'licensee': licensee}
+        }
+        txid = client.publishfrom(
+            licensor,
+            settings.STREAM_SMART_LICENSE_ATTESTATION,
+            [smart_license_id],
+            data,
         )
         if save:
             self.txid = txid

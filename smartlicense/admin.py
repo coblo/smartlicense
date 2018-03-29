@@ -13,7 +13,7 @@ from smartlicense.models import (
     RightsModule,
     Template,
     MediaContent,
-)
+    Attestation)
 
 
 admin.site.site_header = 'Smart License Demo'
@@ -34,10 +34,10 @@ class WalletIDAdmin(admin.ModelAdmin):
 @admin.register(SmartLicense)
 class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
 
-    list_display = ('ident', 'admin_licensors', 'template', 'admin_materials')
+    list_display = ('ident', 'memo', 'licensor', 'template', 'material', 'admin_published')
     fieldsets = (
         ('Basics', {
-            'fields': ('ident', 'template', 'licensors', 'materials'),
+            'fields': ('ident', 'memo', 'template', 'licensor', 'material'),
         }),
         ('SmartLicense Settings', {
             'fields': ('activation_modes', 'rights_modules'),
@@ -47,8 +47,7 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
         })
     )
     readonly_fields = ('ident', 'admin_txid')
-    autocomplete_fields = (
-        'licensors', 'materials', 'activation_modes', 'rights_modules')
+    autocomplete_fields = ('activation_modes', 'rights_modules')
 
     change_actions = ('publish',)
 
@@ -66,6 +65,11 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
             link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
             return mark_safe(link)
     admin_txid.short_description = 'Transaction-ID'
+
+    def admin_published(self, obj):
+        return bool(obj.txid)
+    admin_published.boolean = True
+    admin_published.short_description = 'Published'
 
     def publish(self, request, obj):
         if not obj.txid:
@@ -103,3 +107,30 @@ class MediaContentAdmin(admin.ModelAdmin):
     readonly_fields = ('ident',)
 
     search_fields = ('title', 'name')
+
+
+@admin.register(Attestation)
+class AttestationAdmin(DjangoObjectActions, admin.ModelAdmin):
+    list_display = 'smart_license', 'licensee', 'admin_published'
+    readonly_fields = 'admin_txid',
+
+    change_actions = ('publish',)
+
+    def publish(self, request, obj):
+        if not obj.txid:
+            obj.publish(save=True)
+    publish.label = 'Publish'
+    publish.short_description = 'Publish Attestation to Content Blockchain'
+
+    def admin_published(self, obj):
+        return bool(obj.txid)
+    admin_published.boolean = True
+    admin_published.short_description = 'Published'
+
+    def admin_txid(self, obj):
+        if obj.txid:
+            url = 'http://explorer.coblo.net/tx/{}'.format(obj.txid)
+            link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
+            return mark_safe(link)
+    admin_txid.short_description = 'Transaction-ID'
+
