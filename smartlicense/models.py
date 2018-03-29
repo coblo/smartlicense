@@ -322,8 +322,8 @@ class SmartLicense(models.Model):
     )
 
     class Meta:
-        verbose_name = "Smart License"
-        verbose_name_plural = "Smart Licenses"
+        verbose_name = "Smart License Offer"
+        verbose_name_plural = "Smart License Offers"
 
     def get_absolute_url(self):
         return '/smartlicense/%s/' % self.ident
