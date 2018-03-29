@@ -18,9 +18,12 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+
 from smartlicense import views
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name="index.html")),
     path('demo/', admin.site.urls),
     path('smartlicense/<uuid:ident>/', views.smartlicense_detail),
     path('rights-profile/<str:codes>/', views.rights_profile_detail),
