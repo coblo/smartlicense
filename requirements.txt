@@ -8,3 +8,4 @@ docx2txt
 mcrpc
 markdown
 martor
+django-object-actions

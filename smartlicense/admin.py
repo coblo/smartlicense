@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from django.db.models import TextField
+from django_object_actions import DjangoObjectActions
 from martor.widgets import AdminMartorWidget
 
 from smartlicense.models import (
@@ -30,7 +31,7 @@ class WalletIDAdmin(admin.ModelAdmin):
 
 
 @admin.register(SmartLicense)
-class SmartLicenseAdmin(admin.ModelAdmin):
+class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
 
     list_display = ('ident', 'admin_licensors', 'template', 'admin_materials')
     fieldsets = (
@@ -48,6 +49,8 @@ class SmartLicenseAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         'licensors', 'materials', 'activation_modes', 'rights_modules')
 
+    change_actions = ('publish',)
+
     def admin_licensors(self, obj):
         return ','.join(obj.licensors.values_list('owner__username', flat=True))
     admin_licensors.short_description = 'Licensor(s)'
@@ -55,6 +58,13 @@ class SmartLicenseAdmin(admin.ModelAdmin):
     def admin_materials(self, obj):
         return ','.join(obj.materials.values_list('title', flat=True))
     admin_materials.short_description = 'Licensed Content'
+
+    def publish(self, request, obj):
+        if not obj.txid:
+            obj.publish(save=True)
+    publish.label = 'Publish'
+    publish.short_description = 'Publish Smart License Offer to Content Blockchain'
+
 
 
 @admin.register(ActivationMode)

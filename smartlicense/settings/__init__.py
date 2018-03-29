@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'smartlicense.apps.SmartLicenseConfig',
     'django_markup',
     'martor',
+    'django_object_actions',
 ]
 
 MIDDLEWARE = [
