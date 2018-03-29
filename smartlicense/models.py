@@ -226,7 +226,7 @@ class RightsModule(models.Model):
     )
 
     legal_code = MartorField(
-        help_text='Legal text for SmartLicense',
+        help_text='Legal text for Smart License',
         blank=True,
     )
 
@@ -355,8 +355,8 @@ class SmartLicense(models.Model):
 
     def publish(self, save=True):
         client = get_client()
-        licensors = list(self.licensors.values_list('address', flat=True))
-        keys = [str(self.ident)] + licensors
+        materials = list(self.materials.values_list('ident', flat=True))
+        keys = [str(self.ident)] + materials
         txid = client.publish(
             settings.STREAM_SMART_LICENSE,
             keys,
