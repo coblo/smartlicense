@@ -379,6 +379,19 @@ class SmartLicense(models.Model):
         if save:
             self.txid = txid
             self.save()
+
+        # Create token if tokenize transaction model
+        if self.transaction_model.ident == ActivationMode.TOKEN:
+            client.issue(
+                address=self.licensor.address,
+                asset_name_or_asset_params={
+                    'name': self.ident.bytes.hex(),
+                    'open': True
+                },
+                quantity=1000,
+                smallest_unit=1,
+                native_amount=0.1,
+            )
         return txid
 
 
