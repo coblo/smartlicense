@@ -158,8 +158,6 @@ class MediaContentAdmin(admin.ModelAdmin):
         return True
 
 
-
-
 @admin.register(Attestation)
 class AttestationAdmin(DjangoObjectActions, admin.ModelAdmin):
     list_display = 'smart_license', 'licensee', 'admin_published'
@@ -204,6 +202,3 @@ class TokenTransactionAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return True
-
-    def has_change_permission(self, request, obj=None):
-        return False
