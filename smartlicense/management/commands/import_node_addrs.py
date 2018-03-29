@@ -2,16 +2,13 @@
 from django.core.management import BaseCommand
 from django.contrib.auth.models import User
 from smartlicense.models import WalletID
-from mcrpc import RpcClient
-from django.conf import settings
+from smartlicense.utils import get_client
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        client = RpcClient(
-            settings.NODE_IP, settings.NODE_PORT, settings.NODE_USER, settings.NODE_PWD
-        )
+        client = get_client()
 
         user_obj = User.objects.get(username='demo')
         addrs = client.getaddresses()
