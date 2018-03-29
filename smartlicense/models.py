@@ -88,6 +88,14 @@ class MediaContent(models.Model):
         max_length=255,
     )
 
+    txid = models.CharField(
+        verbose_name='Transaction-ID',
+        help_text='Blockchain TX-ID of registered ISCC',
+        max_length=64,
+        blank=True,
+        default=''
+    )
+
     class Meta:
         verbose_name = 'Media Content'
         verbose_name_plural = 'Media Contents'
@@ -113,6 +121,7 @@ class MediaContent(models.Model):
         if self.file:
             new_upload = isinstance(self.file.file, UploadedFile)
             if new_upload:
+                # Generate ISCC
                 mid, title, extra = iscc.meta_id(self.title, self.extra)
                 filename, file_extension = splitext(self.file.name)
                 ext = file_extension.lower().lstrip('.')
@@ -130,6 +139,24 @@ class MediaContent(models.Model):
                 iid, tophash = iscc.instance_id(data)
                 iscc_code = '-'.join((mid, cid, did, iid))
                 self.ident = iscc_code
+                # Register ISCC
+                data = {
+                    'json': {
+                        'title': title,
+                        'tophash': tophash
+                    }
+                }
+                if extra:
+                    data['json']['extra'] = extra
+
+                client = get_client()
+                txid = client.publish(
+                    settings.STREAM_ISCC,
+                    key_or_keys=[mid, cid, did, iid],
+                    data_hex_or_data_obj=data
+                )
+                self.txid = txid
+
         super(MediaContent, self).save(*args, **kwargs)
 
 
@@ -441,3 +468,48 @@ class Attestation(models.Model):
             self.txid = txid
             self.save()
         return txid
+
+
+class TokenTransaction(models.Model):
+
+    smart_license = models.ForeignKey(
+        SmartLicense,
+        verbose_name='Smart License',
+        help_text='Choose Smart License for which you want to send a Token',
+        on_delete=models.CASCADE
+    )
+
+    recipient = models.CharField(
+        verbose_name='Recipient',
+        help_text='Walled-ID of user to whom you want to send the Smart License Token',
+        max_length=64,
+        validators=[validate_address]
+    )
+
+    txid = models.CharField(
+        verbose_name='Transaction-ID',
+        help_text='Blockchain TX-ID of token transaction',
+        max_length=64,
+        blank=True,
+        default=''
+    )
+
+    class Meta:
+        verbose_name = 'Token Transaction'
+        verbose_name_plural = 'Token Transactions'
+
+    def send_token(self):
+        client = get_client()
+        token_name = self.smart_license.ident.bytes.hex()
+        txid = client.sendasset(
+            address=self.recipient,
+            asset_identifier=token_name,
+            asset_qty=1,
+            native_amount=0.1
+        )
+        return txid
+
+    def save(self, *args, **kwargs):
+        self.txid = self.send_token()
+        super(TokenTransaction, self).save(*args, **kwargs)
+

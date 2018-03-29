@@ -13,7 +13,7 @@ from smartlicense.models import (
     RightsModule,
     Template,
     MediaContent,
-    Attestation)
+    Attestation, TokenTransaction)
 
 
 admin.site.site_header = 'Smart License Demo'
@@ -139,11 +139,25 @@ class TemplateAdmin(admin.ModelAdmin):
 
 @admin.register(MediaContent)
 class MediaContentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'ident', 'title', 'extra',)
-    fields = ('ident', 'title', 'extra', 'file')
-    readonly_fields = ('ident',)
-
+    list_display = ('name', 'ident', 'title', 'extra')
+    fields = ('ident', 'title', 'extra', 'file', 'admin_txid')
+    readonly_fields = 'ident', 'admin_txid'
     search_fields = ('title', 'name')
+
+    def admin_txid(self, obj):
+        if obj.txid:
+            url = 'http://explorer.coblo.net/tx/{}?raw'.format(obj.txid)
+            link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
+            return mark_safe(link)
+    admin_txid.short_description = 'Transaction-ID'
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return True
+
+
 
 
 @admin.register(Attestation)
@@ -171,3 +185,25 @@ class AttestationAdmin(DjangoObjectActions, admin.ModelAdmin):
             return mark_safe(link)
     admin_txid.short_description = 'Transaction-ID'
 
+
+@admin.register(TokenTransaction)
+class TokenTransactionAdmin(admin.ModelAdmin):
+    list_display = 'smart_license', 'recipient',
+    fields = 'smart_license', 'recipient', 'admin_txid'
+    readonly_fields = 'admin_txid',
+
+    def admin_txid(self, obj):
+        if obj.txid:
+            url = 'http://explorer.coblo.net/tx/{}?raw'.format(obj.txid)
+            link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
+            return mark_safe(link)
+    admin_txid.short_description = 'Transaction-ID'
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        return False

@@ -145,6 +145,7 @@ NODE_PWD = 'testpassword'
 
 STREAM_SMART_LICENSE = 'test'
 STREAM_SMART_LICENSE_ATTESTATION = 'test'
+STREAM_ISCC = 'testiscc'
 
 
 # Make sure deployment overrides settings
