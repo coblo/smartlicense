@@ -137,8 +137,6 @@ class TemplateAdmin(admin.ModelAdmin):
         pass
 
 
-
-
 @admin.register(MediaContent)
 class MediaContentAdmin(admin.ModelAdmin):
     list_display = ('name', 'ident', 'title', 'extra',)
@@ -146,7 +144,6 @@ class MediaContentAdmin(admin.ModelAdmin):
     readonly_fields = ('ident',)
 
     search_fields = ('title', 'name')
-
 
 
 @admin.register(Attestation)
