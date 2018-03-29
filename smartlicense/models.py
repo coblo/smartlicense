@@ -186,7 +186,7 @@ class RightsModule(models.Model):
         (SHARE, 'SHARE (Grant)'),
         (ATTRIBUTION, 'ATTRIBUTION (Obligation)'),
         (INDICATE_ADAPTIONS, 'INDICATE_ADAPTIONS (Obligation)'),
-        (NON_COMMERCIAL, 'NON_COMERCIAL (Restriction'),
+        (NON_COMMERCIAL, 'NON_COMMERCIAL (Restriction)'),
         (INDUSTRIAL_PROPERTY_RIGHTS, 'INDUSTRIAL_PROPERTY_RIGHTS (Restiction)')
     )
 
