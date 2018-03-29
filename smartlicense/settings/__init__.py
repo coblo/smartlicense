@@ -142,6 +142,8 @@ NODE_PORT = '9718'
 NODE_USER = 'testuser'
 NODE_PWD = 'testpassword'
 
+STREAM_SMART_LICENSE = 'test'
+
 # Make sure deployment overrides settings
 try:
     from smartlicense.settings.config import *

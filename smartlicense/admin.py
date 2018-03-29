@@ -40,8 +40,11 @@ class SmartLicenseAdmin(admin.ModelAdmin):
         ('SmartLicense Settings', {
             'fields': ('activation_modes', 'rights_modules'),
         }),
+        ('Blockchain Info', {
+            'fields': ('txid',)
+        })
     )
-    readonly_fields = ('ident',)
+    readonly_fields = ('ident', 'txid')
     autocomplete_fields = (
         'licensors', 'materials', 'activation_modes', 'rights_modules')
 

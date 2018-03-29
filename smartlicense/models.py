@@ -2,6 +2,7 @@
 import uuid
 from io import BytesIO
 from os.path import splitext
+from hashlib import sha256
 
 import os
 
@@ -13,6 +14,8 @@ from django.db import models
 from django.conf import settings
 import iscc
 from martor.models import MartorField
+
+from smartlicense.utils import get_client
 
 
 class WalletID(models.Model):
@@ -144,6 +147,10 @@ class ActivationMode(models.Model):
     ident = models.CharField(primary_key=True, choices=ACTIVATION_MODES, max_length=24)
     description = models.TextField(blank=True)
 
+    class Meta:
+        verbose_name = 'Transaction Model'
+        verbose_name_plural = 'Transaction Models'
+
     def __str__(self):
         return self.ident
 
@@ -172,17 +179,17 @@ class RightsModule(models.Model):
     INDUSTRIAL_PROPERTY_RIGHTS = 'INDUSTRIAL_PROPERTY_RIGHTS'
 
     RIGHTS_MODULES = (
-        (ADAPT, 'ADAPT'),
-        (REPRODUCE, 'REPRODUCE'),
-        (RESALE, 'RESALE'),
-        (SHARE, 'SHARE'),
-        (ATTRIBUTION, 'ATTRIBUTION'),
-        (INDICATE_ADAPTIONS, 'INDICATE_ADAPTIONS'),
-        (NON_COMMERCIAL, 'NON_COMERCIAL'),
-        (INDUSTRIAL_PROPERTY_RIGHTS, 'INDUSTRIAL_PROPERTY_RIGHTS')
+        (ADAPT, 'ADAPT (Grant)'),
+        (REPRODUCE, 'REPRODUCE (Grant)'),
+        (RESALE, 'RESALE (Grant)'),
+        (SHARE, 'SHARE (Grant)'),
+        (ATTRIBUTION, 'ATTRIBUTION (Obligation)'),
+        (INDICATE_ADAPTIONS, 'INDICATE_ADAPTIONS (Obligation)'),
+        (NON_COMMERCIAL, 'NON_COMERCIAL (Restriction'),
+        (INDUSTRIAL_PROPERTY_RIGHTS, 'INDUSTRIAL_PROPERTY_RIGHTS (Restiction)')
     )
 
-    GRANT, RESTRICTION, OBLIGATION = 'grant', 'restriction', 'oblication'
+    GRANT, RESTRICTION, OBLIGATION = 'grant', 'restriction', 'obligation'
 
     RIGHTS_MODULE_TYPES = (
         (GRANT, 'Grants right'),
@@ -230,7 +237,7 @@ class RightsModule(models.Model):
         verbose_name_plural = 'Rights Modules'
 
     def __str__(self):
-        return self.ident
+        return '{} ({})'.format(self.ident, self.type)
 
 
 class Template(models.Model):
@@ -321,9 +328,41 @@ class SmartLicense(models.Model):
         related_name='+',
     )
 
+    txid = models.CharField(
+        verbose_name='Transaction-ID',
+        help_text='Blockchain TX-ID of published Smart License',
+        max_length=64,
+        blank=True,
+        default=''
+    )
+
     class Meta:
         verbose_name = "Smart License Offer"
         verbose_name_plural = "Smart License Offers"
 
     def get_absolute_url(self):
         return '/smartlicense/%s/' % self.ident
+
+    def to_primitive(self):
+        """Return python dict for stream publishing"""
+        data = dict(
+            template=sha256(self.template.template.encode('utf-8')).hexdigest(),
+            rights_modules=list(self.rights_modules.values_list('ident', flat=True)),
+            transaction_models=list(self.activation_modes.values_list('ident', flat=True)),
+        )
+        wrapped = {'json': data}
+        return wrapped
+
+    def publish(self, save=True):
+        client = get_client()
+        licensors = list(self.licensors.values_list('address', flat=True))
+        keys = [str(self.ident)] + licensors
+        txid = client.publish(
+            settings.STREAM_SMART_LICENSE,
+            keys,
+            self.to_primitive()
+        )
+        if save:
+            self.txid = txid
+            self.save()
+        return txid

@@ -7,7 +7,7 @@
       may also be **shared**.'}
 - model: smartlicense.rightsmodule
   pk: ATTRIBUTION
-  fields: {type: oblication, short_code: AT, help: If the licensed material contains
+  fields: {type: obligation, short_code: AT, help: If the licensed material contains
       references to the creator or publisher or copyright notices you must not remove
       them., legal_code: "**Attribution: You** have to pertain notices that are supplied
       with the **licensed material** when you **share** or **distribute** it. Under
@@ -17,7 +17,7 @@
       material**."}
 - model: smartlicense.rightsmodule
   pk: INDICATE_ADAPTIONS
-  fields: {type: oblication, short_code: IA, help: If you share your own adaption
+  fields: {type: obligation, short_code: IA, help: If you share your own adaption
       you must reference the original **licensed material**., legal_code: '**Indicate
       adaptations:** If **you** share an adapted version of the **licensed material
       you** have to indicate that your **adaptation** bases on the **licensed material**
