@@ -423,7 +423,10 @@ class SmartLicense(models.Model):
                 quantity=1000,
                 smallest_unit=1,
                 native_amount=0.1,
-                custom_fields={'info': self.info}
+                custom_fields={
+                    'info': self.info,
+                    'type': 'smart-license'
+                }
             )
         if save:
             self.txid = txid
