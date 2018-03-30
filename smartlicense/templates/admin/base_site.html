@@ -1,33 +1,46 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load admin_static i18n%}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
-
-{% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{# Additional <head> content here, some extra meta tags or favicon #}
+{% block extrahead %}
 {% endblock %}
 
-{% block usertools %}
-{% if has_permission %}
-<div id="user-tools">
-    {% block welcome-msg %}
-        {% trans 'Welcome,' %}
-        <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-    {% endblock %}
-    {% block userlinks %}
-        {% if site_url %}
-            <a href="{{ site_url }}">{% trans 'View site' %}</a> /
-        {% endif %}
-        {% if user.is_active and user.is_staff %}
-            {% url 'django-admindocs-docroot' as docsroot %}
-            {% if docsroot %}
-                <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
-            {% endif %}
-        {% endif %}
-        <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
-    {% endblock %}
-</div>
-{% endif %}
+{% block header_time %}{% endblock %}
+
+{% block userlinks %}
+  <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{# Additional CSS includes #}
+{#{% block extrastyle %}#}
+{#  <link rel="stylesheet" type="text/css" href="{% static 'css/my_project.css' %}" media="all">#}
+{#{% endblock %}#}
+
+
+{# Additional JS files in footer, right before </body> #}
+{#{% block extrajs %}#}
+{#  <script type="text/javascript" src="{% static 'js/my_project.js' %}"></script>#}
+{#{% endblock %}#}
+
+
+{# Footer links (left side) #}
+{% block footer_links %}
+  <a href="//smartlicense.coblo.net" class="icon"><i class="icon-home"></i>Smart
+    License Demo</a>
+{% endblock %}
+
+{# Additional header content like notifications or language switcher #}
+{% block header_content %}
+
+{% endblock %}
+
+{# Footer branding name (center) #}
+{% block footer_branding %}
+{% endblock %}
+
+
+{# Footer copyright (right side) #}
+{% block copyright %}
+  Copyright &copy; 2018 Content Blockchain Project<br>Developed by
+  <a href="//content-blockchain.org" target="_blank">Coblo</a>
+{% endblock %}

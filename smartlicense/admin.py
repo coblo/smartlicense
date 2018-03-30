@@ -3,7 +3,8 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from django.db.models import TextField
 from django.utils.safestring import mark_safe
-from django_object_actions import DjangoObjectActions
+from django_object_actions import DjangoObjectActions, \
+    takes_instance_or_queryset
 from martor.widgets import AdminMartorWidget
 
 from smartlicense.models import (
@@ -21,7 +22,9 @@ admin.site.site_title = 'Smart License Demo'
 admin.site.index_title = ''
 admin.site.unregister(User)
 admin.site.unregister(Group)
-admin.site.login_template = 'login.html'
+admin.site.disable_action('delete_selected')
+
+# admin.site.login_template = 'login.html'
 
 
 @admin.register(WalletID)
@@ -58,7 +61,6 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
     autocomplete_fields = ('rights_modules', )
 
     change_actions = ('publish',)
-    changelist_actions = ('publish',)
 
     def admin_licensors(self, obj):
         return ','.join(obj.licensors.values_list('owner__username', flat=True))
@@ -124,9 +126,14 @@ class RightsModuleAdmin(admin.ModelAdmin):
 class TemplateAdmin(admin.ModelAdmin):
     list_display = 'code', 'name', 'description'
     actions = None
-    formfield_overrides = {
-        TextField: {'widget': AdminMartorWidget},
-    }
+    fieldsets = [
+        ('', {'fields': ('code', 'name', 'description')}),
+        ('Body', {'classes': ('full-width',), 'fields': ('template',)})
+    ]
+
+    # formfield_overrides = {
+    #     TextField: {'widget': AdminMartorWidget},
+    # }
 
     def has_add_permission(self, request):
         return False
@@ -139,11 +146,14 @@ class TemplateAdmin(admin.ModelAdmin):
 
 
 @admin.register(MediaContent)
-class MediaContentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'ident', 'title', 'extra')
+class MediaContentAdmin(DjangoObjectActions, admin.ModelAdmin):
+    list_display = ('title', 'name',  'ident', 'extra', 'admin_registered')
     fields = ('ident', 'title', 'extra', 'file', 'admin_txid')
     readonly_fields = 'ident', 'admin_txid'
     search_fields = ('title', 'name')
+    actions = ['action_register']
+    change_actions = ['action_register']
+    # changelist_actions = ['action_register']
 
     def admin_txid(self, obj):
         if obj.txid:
@@ -151,6 +161,21 @@ class MediaContentAdmin(admin.ModelAdmin):
             link = '<a href={} target="_blank">{}</a>'.format(url, obj.txid)
             return mark_safe(link)
     admin_txid.short_description = 'Transaction-ID'
+
+    def admin_registered(self, obj):
+        return bool(obj.txid)
+    admin_registered.boolean = True
+    admin_registered.short_description = 'Registered'
+
+    @takes_instance_or_queryset
+    def action_register(self, request, queryset):
+        for obj in queryset:
+            if not obj.txid:
+                txid = obj.register()
+                obj.txid = txid
+                obj.save()
+    action_register.label = 'Register on Blockchain'
+    action_register.short_description = 'Register on Content Blockchain ISCC-Stream'
 
     def has_delete_permission(self, request, obj=None):
         return False

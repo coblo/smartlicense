@@ -88,6 +88,13 @@ class MediaContent(models.Model):
         max_length=255,
     )
 
+    tophash = models.CharField(
+        verbose_name='tophash',
+        max_length=64,
+        blank=True,
+        default=''
+    )
+
     txid = models.CharField(
         verbose_name='Transaction-ID',
         help_text='Blockchain TX-ID of registered ISCC',
@@ -106,11 +113,33 @@ class MediaContent(models.Model):
     def natural_key(self):
         return str(self)
 
+    def register(self):
+        # Register ISCC
+        data = {
+            'json': {
+                'title': self.title,
+                'tophash': self.tophash,
+            }
+        }
+        if self.extra:
+            data['json']['extra'] = self.extra
+
+        client = get_client()
+        txid = client.publish(
+            settings.STREAM_ISCC,
+            key_or_keys=list(self.ident.split('-')),
+            data_hex_or_data_obj=data
+        )
+        return txid
+
     def clean(self):
         super().clean()
+        if self.txid:
+            raise ValidationError('Cannot change registered entry')
         if not self.pk and self.file:
             if not self.file.name.lower().endswith(self.ALLOWED_EXTENSIONS):
-                raise ValidationError('Please provide a supported format: {}'.format(self.ALLOWED_EXTENSIONS))
+                raise ValidationError('Please provide a supported format: {}'.format(
+                    self.ALLOWED_EXTENSIONS))
             basename, ext = os.path.splitext(self.file.name)
             # Store original file name
             self.name = self.file.name
@@ -118,11 +147,15 @@ class MediaContent(models.Model):
             self.file.name = u''.join([str(uuid.uuid4()), ext.lower()])
 
     def save(self, *args, **kwargs):
+        mid, title, extra = iscc.meta_id(self.title, self.extra)
+        if self.ident:
+            new_ident = [mid] + list(self.ident.split('-')[1:])
+            self.ident = '-'.join(new_ident)
         if self.file:
             new_upload = isinstance(self.file.file, UploadedFile)
             if new_upload:
                 # Generate ISCC
-                mid, title, extra = iscc.meta_id(self.title, self.extra)
+
                 filename, file_extension = splitext(self.file.name)
                 ext = file_extension.lower().lstrip('.')
                 data = self.file.open('rb').read()
@@ -136,27 +169,9 @@ class MediaContent(models.Model):
                 elif ext in self.IMAGE_EXTENSIONS:
                     cid = iscc.content_id_image(BytesIO(data))
                 did = iscc.data_id(data)
-                iid, tophash = iscc.instance_id(data)
+                iid, self.tophash = iscc.instance_id(data)
                 iscc_code = '-'.join((mid, cid, did, iid))
                 self.ident = iscc_code
-                # Register ISCC
-                data = {
-                    'json': {
-                        'title': title,
-                        'tophash': tophash
-                    }
-                }
-                if extra:
-                    data['json']['extra'] = extra
-
-                client = get_client()
-                txid = client.publish(
-                    settings.STREAM_ISCC,
-                    key_or_keys=[mid, cid, did, iid],
-                    data_hex_or_data_obj=data
-                )
-                self.txid = txid
-
         super(MediaContent, self).save(*args, **kwargs)
 
 
@@ -291,7 +306,7 @@ class Template(models.Model):
 
     template = MartorField(
         verbose_name='Template',
-        help_text="The tamplate data itself (Markdown/Jinja)."
+        help_text="The tamplate data itself (Markdown/Jinja).",
     )
 
     class Meta:
@@ -383,8 +398,8 @@ class SmartLicense(models.Model):
     )
 
     class Meta:
-        verbose_name = "Smart License Offer"
-        verbose_name_plural = "Smart License Offers"
+        verbose_name = "Smart License"
+        verbose_name_plural = "Smart Licenses"
 
     def __str__(self):
         return self.memo
@@ -459,8 +474,8 @@ class Attestation(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Smart License Attestation'
-        verbose_name_plural = 'Smart License Attestations'
+        verbose_name = 'Attestation'
+        verbose_name_plural = 'Attestations'
 
     def publish(self, save=True):
         client = get_client()

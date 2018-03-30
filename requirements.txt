@@ -9,3 +9,4 @@ mcrpc
 markdown
 martor
 django-object-actions
+django-suit

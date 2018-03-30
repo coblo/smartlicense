@@ -1,0 +1,12 @@
+{% extends "admin/login.html" %}
+{% load i18n admin_static suit_tags %}
+{% load url from suit_compat %}
+
+{% block container %}
+<div id="wrap">
+  <!-- Container -->
+  <div class="alert alert-warn">Use "<strong>demo</strong>" for both username and password to log in.</div>
+   {% block content %}{{ block.super }}{% endblock %}
+  <div id="push"></div>
+</div>
+{% endblock %}

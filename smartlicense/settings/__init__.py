@@ -31,20 +31,20 @@ ADMINS = [('admin', 'admin@admin.org')]
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'martor',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'smartlicense.apps.SmartLicenseConfig',
     'django_markup',
-    'martor',
     'django_object_actions',
+    'smartlicense.apps.SmartLicenseConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartlicense.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -90,7 +89,6 @@ DATABASES = {
         'NAME': SCRACTH_DB,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -110,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -124,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -132,9 +128,10 @@ STATIC_URL = '/static/'
 
 # Mator
 MARTOR_ENABLE_CONFIGS = {
-    'imgur': 'false',    # to enable/disable imgur/custom uploader.
+    'imgur': 'false',  # to enable/disable imgur/custom uploader.
     'mention': 'false',  # to enable/disable mention
-    'jquery': 'true',    # to include/revoke jquery (require for admin default django)
+    'jquery': 'true',
+# to include/revoke jquery (require for admin default django)
 }
 
 # Custom project settings
@@ -147,12 +144,37 @@ STREAM_SMART_LICENSE = 'test'
 STREAM_SMART_LICENSE_ATTESTATION = 'test'
 STREAM_ISCC = 'testiscc'
 
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Smart License Demo',
+    'CONFIRM_UNSAVED_CHANGES': False,
+    'MENU_OPEN_FIRST_CHILD': True,
+    'SEARCH_URL': 'admin:smartlicense_mediacontent_changelist',
+    'LIST_PER_PAGE': 18,
+    'MENU': (
+        {'label': 'Smart Licenses', 'models': (
+            {'model': 'smartlicense.mediacontent'},
+            {'model': 'smartlicense.smartlicense'},
+        )},
+        {'label': 'Transactions', 'models': (
+            {'model': 'smartlicense.attestation'},
+            {'model': 'smartlicense.tokentransaction'},
+        )},
+        {'label': 'Configuration', 'models': (
+            {'model': 'smartlicense.template'},
+            {'model': 'smartlicense.rightsmodule'},
+            {'model': 'smartlicense.activationmode'},
+        )}
+
+
+    )
+}
 
 # Make sure deployment overrides settings
 try:
     from smartlicense.settings.config import *
 except Exception:
-    print('No custom configuration found. Create a smartlicense/settings/config.py')
+    print(
+        'No custom configuration found. Create a smartlicense/settings/config.py')
     import sys
-    sys.exit(0)
 
+    sys.exit(0)
