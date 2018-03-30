@@ -45,7 +45,7 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
     list_display = ('ident', 'memo', 'licensor', 'template', 'material', 'admin_published')
     fieldsets = (
         ('Basics', {
-            'fields': ('ident', 'memo', 'template', 'licensor', 'material'),
+            'fields': ('ident', 'info', 'memo', 'template', 'licensor', 'material'),
         }),
         ('SmartLicense Settings', {
             'fields': ('transaction_model', 'rights_modules'),
@@ -58,6 +58,7 @@ class SmartLicenseAdmin(DjangoObjectActions, admin.ModelAdmin):
     autocomplete_fields = ('rights_modules', )
 
     change_actions = ('publish',)
+    changelist_actions = ('publish',)
 
     def admin_licensors(self, obj):
         return ','.join(obj.licensors.values_list('owner__username', flat=True))

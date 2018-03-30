@@ -312,11 +312,19 @@ class SmartLicense(models.Model):
         editable=False
     )
 
-    memo = models.CharField(
-        verbose_name='Internal Memo',
-        help_text='Short internal memo for Smart License that helps you identify this license offer',
+    info = models.CharField(
+        verbose_name='Public Info',
+        help_text='A short public description about the Smart License. '
+                  'Will also be added as info to tokens.',
         max_length=255,
         blank=False
+    )
+
+    memo = models.CharField(
+        verbose_name='Internal Memo',
+        help_text='Short internal memo about the Smart License',
+        max_length=255,
+        blank=True
     )
 
     template = models.ForeignKey(
@@ -403,9 +411,6 @@ class SmartLicense(models.Model):
             keys,
             self.to_primitive()
         )
-        if save:
-            self.txid = txid
-            self.save()
 
         # Create token if tokenize transaction model
         if self.transaction_model.ident == ActivationMode.TOKEN:
@@ -418,7 +423,11 @@ class SmartLicense(models.Model):
                 quantity=1000,
                 smallest_unit=1,
                 native_amount=0.1,
+                custom_fields={'info': self.info}
             )
+        if save:
+            self.txid = txid
+            self.save()
         return txid
 
 
