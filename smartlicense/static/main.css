@@ -1,0 +1,89 @@
+body {
+    margin: 1rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.main-header {
+    margin-left: 1rem;
+    margin-bottom: .5rem;
+}
+
+.content {
+    display: flex;
+}
+
+.content-left, .content-right {
+    flex: 1;
+}
+
+.rights-profiles, .smart-license-demo {
+    background-color: #bae3ec;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.rights-profiles h2, .smart-license-demo h2 {
+    margin: 0;
+}
+
+.link-image-demo {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.text-disabled {
+    opacity: 0.5;
+}
+
+.rights-row {
+    display: flex;
+}
+
+.rights-row-left {
+    flex: 0.3;
+}
+
+.rights-row-right {
+    flex: 0.7;
+}
+
+.result {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.demo-button-container {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.demo-button {
+    text-decoration: none;
+    font-size: 1.8rem;
+    background-color: #5B9FAF;
+    padding: 4px 8px 4px 8px;
+    color: #fff;
+    border-radius: .5rem;
+}
+
+.rights-row.indicate-adaptions, .rights-row.attribution, #title-obligations {
+    display: None;
+}
+
+@media only screen and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+    .content-left {
+        order: -1;
+    }
+}

@@ -1,33 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Content Blockchain - Smart License Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <title>Content Blockchain - Smart License Demo</title>
 </head>
 <body>
-<h1>Content Blockchain - Smart License Demo</h1>
-<h2>Rights Profiles</h2>
-<h3>Example: <a href="rights-profile/RP-AD-NC-AT/">rights-profile/RP-AD-NC-AT/</a></h3>
-<p>Test with these short codes in the url:</p>
-<ul>
-  <li>License Grants:</li>
-  <ul>
-    <li>AD > Adapt</li>
-    <li>RP > Reproduce</li>
-    <li>RS > Resale</li>
-    <li>SH > Share</li>
-  </ul>
-  <li>License Restrictions:</li>
-  <ul>
-    <li>NC > Non-Commercial</li>
-    <li>IP > No Industrial property</li>
-  </ul>
-    <li>License Obligations:</li>
-  <ul>
-    <li>AT > Attribution</li>
-    <li>IA > Indicate Adaptions</li>
-  </ul>
-</ul>
-<h3>Smart License Demo Dashboard: <a href="demo/">Demo</a></h3>
+<h1 class="main-header">Content Blockchain - Smart License Demo</h1>
+<div class="content">
+    <div class="content-right">
+        <div class="rights-profiles">
+            <h2>Rights Profiles Demo:</h2>
+            <h3 class="mb-0">Grants:</h3>
+            <div class="rights-row">
+                <div class="rights-row-left">
+                    <input type="checkbox" id="reproduce" name="reproduce" checked disabled/>
+                    <label class="text-disabled" for="reproduce">Reproduce</label><br/>
+                </div>
+                <div class="rights-row-right text-disabled">Always has to be selected. You may copy the work.</div>
+            </div>
+            <div class="rights-row">
+                <div class="rights-row-left">
+                    <input type="checkbox" id="adapt" class="obligation-changer link-changer" name="adapt"/>
+                    <label for="adapt">Adapt</label><br/></div>
+                <div class="rights-row-right">You may modify the licensed material and share your modified version.
+                </div>
+            </div>
+            <div class="rights-row">
+                <div class="rights-row-left">
+                    <input type="checkbox" id="share" class="obligation-changer link-changer" name="share"/>
+                    <label for="share">Share</label><br/></div>
+                <div class="rights-row-right">You may make the material accessible to others in digital form.</div>
+            </div>
+            <div class="rights-row">
+                <div class="rights-row-left">
+                    <input type="checkbox" id="resale" class="obligation-changer link-changer" name="resale"/>
+                    <label for="resale">Resale</label><br/></div>
+                <div class="rights-row-right">You may sell your smart license “as is” to someone else.</div>
+            </div>
+            <h3 class="mb-0">Restrictions:</h3>
+            <div class="rights-row">
+                <div class="rights-row-left">
+                    <input type="checkbox" id="industrial" name="industrial" checked disabled/>
+                    <label class="text-disabled" for="industrial">No Industrial property</label><br/></div>
+                <div class="rights-row-right text-disabled">Always has to be selected. Patent and trademark rights are
+                    not
+                    licensed under this smart license.
+                </div>
+            </div>
+            <div class="rights-row">
+                <div class="rights-row-left">
+                    <input type="checkbox" id="noncommercial" class="link-changer" name="noncommercial"/>
+                    <label for="noncommercial">Non-Commercial</label><br/></div>
+                <div class="rights-row-right">You may not use the material for commercial purposes.</div>
+            </div>
+            <h3 id="title-obligations" class="mb-0">Obligations:</h3>
+            <div class="rights-row indicate-adaptions" id="indicate-adaptions">
+                <div class="rights-row-left">Indicate Adaptions</div>
+                <div class="rights-row-right">If you share an adapted version of the licensed material you have to
+                    indicate
+                    that your adaptation bases on the licensed material in a reasonable manner. You have to name the
+                    creator, copyright owner and licensor of the material according to the attribution obligation. If
+                    you
+                    share adaptations you must not imply that they are authorised or otherwise endorsed by the licensor.
+                </div>
+            </div>
+            <div class="rights-row attribution" id="attribution">
+                <div class="rights-row-left">Attribution</div>
+                <div class="rights-row-right">If the licensed material contains references to the creator or publisher
+                    or
+                    copyright notices you must not remove them.
+                </div>
+            </div>
+            <div class="result"><h3>Resulting Rights Profile: <a id="result-link" href="rights-profile/RP-IP/">rights-profile/RP-IP</a>
+            </h3></div>
+        </div>
+    </div>
+    <div class="content-left">
+        <div class="smart-license-demo">
+            <h2>Smart License Demo Dashboard:</h2>
+            <a href="demo/">
+                <img class="link-image-demo" src="../static/smart-license-demo.png" alt="Smart License Demo Dashboard"/>
+            </a>
+            <div class="demo-button-container">
+                <a class="demo-button" href="demo/">Go To Demo</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../static/main.js"></script>
 </body>
 </html>
