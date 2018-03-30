@@ -62,13 +62,31 @@
       the necessary reproductions are covered, too.'}
 - model: smartlicense.activationmode
   pk: ATTESTATION
-  fields: {description: ''}
+  fields: {description: "Dictates that a license contract becomes effective between
+      Licensor and Licensee when an on-chain attestation originating from the Walled-ID
+      of the licensor has been confirmed on the blockchain. An on-chain attestation
+      has to include references to a Smart License and the Wallet-ID of the licensee.\r\n\r\nA
+      Smart License that specifies CHAIN_ATTESTATION as one of its allowable Transaction
+      Models can be triggered by the publisher of the Smart License independent of
+      a price or payment method. The Licensor does this by attesting to the license
+      grant with an on-chain entry to the data-stream smart-license-attestations that
+      references the Licensee by Wallet-ID and the Smart License itself by UUID4."}
 - model: smartlicense.activationmode
   pk: PAYMENT
-  fields: {description: ''}
+  fields: {description: "Dictates that a license contract becomes effective between
+      Licensor and Licensee when an on-chain payment of amount price X from the licensees
+      Wallet-ID to payment_address Y has been confirmed on the blockchain.\r\n\r\nA
+      Smart License that specifies CHAIN_PAYMENT as one of its allowable Transaction
+      Models must also specify a price in one or multiple on-chain currencies (native
+      or token) that are accepted as a payment that triggers the verifiable formation
+      of a Smart License Contract."}
 - model: smartlicense.activationmode
   pk: TOKEN
-  fields: {description: ''}
+  fields: {description: A Smart License that specifies CHAIN_TOKENIZATION as one of
+      its allowable Transaction Models must reference a specific token that securitizes
+      the formation of a contract between the licensor and the token holder. This
+      effectively means whoever holds such token is automatically a licensee of the
+      Smart License that is bound to the token.}
 - model: smartlicense.template
   pk: 1
   fields: {code: CBP-B2C-V1, name: Content Blockchain B2C Smart License, description: An

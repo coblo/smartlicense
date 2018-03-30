@@ -45,7 +45,7 @@ class WalletID(models.Model):
         verbose_name_plural = 'Wallet-IDs'
 
     def __str__(self):
-        return '{} ({}...)'.format(self.owner, self.address[:6])
+        return '{} - {}'.format(self.owner, self.address)
 
 
 class MediaContent(models.Model):
@@ -210,6 +210,18 @@ class RighsModuleQuerySet(models.QuerySet):
         return self.filter(type=RightsModule.OBLIGATION)
 
 
+class SmartLicenseQuerySet(models.QuerySet):
+
+    def tokenized(self):
+        return self.filter(transaction_model=ActivationMode.TOKEN)
+
+    def attestable(self):
+        return self.filter(transaction_model=ActivationMode.ATTESTATION)
+
+    def payable(self):
+        return self.filter(transaction_model=ActivationMode.PAYMENT)
+
+
 class RightsModule(models.Model):
 
     ADAPT = 'ADAPT'
@@ -335,15 +347,9 @@ class SmartLicense(models.Model):
         blank=False
     )
 
-    memo = models.CharField(
-        verbose_name='Internal Memo',
-        help_text='Short internal memo about the Smart License',
-        max_length=255,
-        blank=True
-    )
-
     template = models.ForeignKey(
         'smartlicense.Template',
+        verbose_name='License Template',
         help_text='The contract template for the SmartLicense.',
         on_delete=models.CASCADE,
     )
@@ -397,12 +403,14 @@ class SmartLicense(models.Model):
         default=''
     )
 
+    objects = SmartLicenseQuerySet.as_manager()
+
     class Meta:
         verbose_name = "Smart License"
         verbose_name_plural = "Smart Licenses"
 
     def __str__(self):
-        return self.memo
+        return self.info
 
     def get_absolute_url(self):
         return '/smartlicense/%s/' % self.ident
@@ -417,7 +425,7 @@ class SmartLicense(models.Model):
         wrapped = {'json': data}
         return wrapped
 
-    def publish(self, save=True):
+    def register(self, save=False):
         client = get_client()
         keys = [str(self.ident), self.material.ident]
         txid = client.publishfrom(
@@ -477,7 +485,10 @@ class Attestation(models.Model):
         verbose_name = 'Attestation'
         verbose_name_plural = 'Attestations'
 
-    def publish(self, save=True):
+    def __str__(self):
+        return 'Attestation ({})'.format(self.txid[:8])
+
+    def register(self, save=False):
         client = get_client()
         smart_license_id = str(self.smart_license.ident)
         licensor = self.smart_license.licensor.address
@@ -486,15 +497,20 @@ class Attestation(models.Model):
             'json': {'licensee': licensee}
         }
         txid = client.publishfrom(
-            licensor,
-            settings.STREAM_SMART_LICENSE_ATTESTATION,
-            [smart_license_id],
-            data,
+            from_address=licensor,
+            stream_identifier=settings.STREAM_SMART_LICENSE,
+            key_or_keys=['ATT', smart_license_id],
+            data_hex_or_data_obj=data
         )
         if save:
             self.txid = txid
             self.save()
         return txid
+
+    def save(self, *args, **kwargs):
+        if not self.txid:
+            self.txid = self.register(save=False)
+        super().save(*args, **kwargs)
 
 
 class TokenTransaction(models.Model):
@@ -525,7 +541,7 @@ class TokenTransaction(models.Model):
         verbose_name = 'Token Transaction'
         verbose_name_plural = 'Token Transactions'
 
-    def send_token(self):
+    def register(self):
         client = get_client()
         token_name = self.smart_license.ident.bytes.hex()
         txid = client.sendasset(
@@ -537,6 +553,6 @@ class TokenTransaction(models.Model):
         return txid
 
     def save(self, *args, **kwargs):
-        self.txid = self.send_token()
+        if not self.txid:
+            self.txid = self.register()
         super(TokenTransaction, self).save(*args, **kwargs)
-
