@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
     <title>Content Blockchain - Smart License Demo</title>
 </head>
 <body>
@@ -81,7 +82,7 @@
         <div class="smart-license-demo">
             <h2>Smart License Demo Dashboard:</h2>
             <a href="demo/">
-                <img class="link-image-demo" src="../static/smart-license-demo.png" alt="Smart License Demo Dashboard"/>
+                <img class="link-image-demo" src="{% static 'smart-license-demo.png' %}" alt="Smart License Demo Dashboard"/>
             </a>
             <div class="demo-button-container">
                 <a class="demo-button" href="demo/">Go To Demo</a>
@@ -89,6 +90,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="../static/main.js"></script>
+<script type="text/javascript" src="{% static 'main.js' %}"></script>
 </body>
 </html>
