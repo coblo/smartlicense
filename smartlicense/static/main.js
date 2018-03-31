@@ -37,7 +37,7 @@ linkChanger.forEach(function (element) {
             link += 'SH-';
         if (resaleElem.checked)
             link += 'RS-';
-        link += 'IP';
+        link += 'NI';
         if (noncommercialElem.checked)
             link += '-NC';
         resultElem.href = link;

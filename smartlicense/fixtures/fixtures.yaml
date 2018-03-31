@@ -24,19 +24,19 @@
       in a reasonable manner. You have to name the **creator**, copyright owner and
       **licensor** of the material according to the **attribution** obligation.'}
 - model: smartlicense.rightsmodule
-  pk: INDUSTRIAL_PROPERTY_RIGHTS
-  fields: {type: restriction, short_code: IP, help: No Industrial Patents - Patent
-      and trademark rights are not licensed under this **smart license.**, legal_code: '**Industrial
-      property rights:** Patent and trademark rights are not licensed under this **smart
-      license**. Patents and trademarks may only be used to the limited extent necessary
-      to allow exercise of the rights licensed by this **smart license**.'}
-- model: smartlicense.rightsmodule
   pk: NON_COMMERCIAL
   fields: {type: restriction, short_code: NC, help: Non-Commercial - You may not use
       the material for commercial purposes., legal_code: '**Non-commercial: You**
       must not use the material in a way that is primarily intended for or directed
       towards commercial advantage or monetary compensation. For purposes of this
       smart license, the **resale** of the **licensed material** is non-commercial.'}
+- model: smartlicense.rightsmodule
+  pk: NO_INDUSTRIAL_PROPERTY
+  fields: {type: restriction, short_code: NI, help: No Industrial Patents - Patent
+      and trademark rights are not licensed under this **smart license.**, legal_code: '**Industrial
+      property rights:** Patent and trademark rights are not licensed under this **smart
+      license**. Patents and trademarks may only be used to the limited extent necessary
+      to allow exercise of the rights licensed by this **smart license**.'}
 - model: smartlicense.rightsmodule
   pk: REPRODUCE
   fields: {type: grant, short_code: RP, help: Reproduce - You may copy the work, legal_code: '**Reproduce:
