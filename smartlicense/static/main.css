@@ -5,6 +5,8 @@ body {
     line-height: 18px;
     color: #333333;
     background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-header {
@@ -14,6 +16,7 @@ body {
 
 .content {
     display: flex;
+    flex: 1;
 }
 
 .content-left, .content-right {
@@ -85,7 +88,20 @@ body {
     .content {
         flex-direction: column;
     }
+
     .content-left {
         order: -1;
     }
+}
+
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    margin: 5rem -1rem -1rem -1rem;
+}
+
+.footer .footer-text a {
+    color: white;
 }

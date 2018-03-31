@@ -15,7 +15,17 @@ var attributionElem = document.getElementById('attribution');
 var resultElem = document.getElementById('result-link');
 
 obligationChanger.forEach(function (element) {
-    element.addEventListener('change', function () {
+    element.addEventListener('change', obligationsChanged);
+});
+
+linkChanger.forEach(function (element) {
+    element.addEventListener('change', linkChanged);
+});
+
+obligationsChanged();
+linkChanged();
+
+function obligationsChanged() {
         if (adaptElem.checked || shareElem.checked || resaleElem.checked) {
             titleElem.style.display = "block";
             attributionElem.style.display = "flex";
@@ -25,11 +35,9 @@ obligationChanger.forEach(function (element) {
             attributionElem.style.display = "none";
             indicateElem.style.display = "none";
         }
-    });
-});
+}
 
-linkChanger.forEach(function (element) {
-    element.addEventListener('change', function () {
+function linkChanged() {
         var link = 'rights-profile/RP-';
         if (adaptElem.checked)
             link += 'AD-';
@@ -40,7 +48,10 @@ linkChanger.forEach(function (element) {
         link += 'NI';
         if (noncommercialElem.checked)
             link += '-NC';
+        if (adaptElem.checked)
+            link += '-IA';
+        if (adaptElem.checked || shareElem.checked || resaleElem.checked)
+            link += '-AT';
         resultElem.href = link;
         resultElem.innerHTML = link;
-    });
-});
+}
