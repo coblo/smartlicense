@@ -17,61 +17,53 @@
             <div class="rights-row">
                 <div class="rights-row-left">
                     <input type="checkbox" id="reproduce" name="reproduce" checked disabled/>
-                    <label class="text-disabled" for="reproduce">Reproduce</label><br/>
+                    <label class="text-disabled" for="reproduce">Reproduce (RP)</label><br/>
                 </div>
-                <div class="rights-row-right text-disabled">Always has to be selected. You may copy the work.</div>
+                <div class="rights-row-right text-disabled">You may copy the work</div>
             </div>
             <div class="rights-row">
                 <div class="rights-row-left">
                     <input type="checkbox" id="adapt" class="obligation-changer link-changer" name="adapt"/>
-                    <label for="adapt">Adapt</label><br/></div>
-                <div class="rights-row-right">You may modify the licensed material and share your modified version.
+                    <label for="adapt">Adapt (AD)</label><br/></div>
+                <div class="rights-row-right">You may modify the licensed material and <b>share</b> your modified version.
                 </div>
             </div>
             <div class="rights-row">
                 <div class="rights-row-left">
                     <input type="checkbox" id="share" class="obligation-changer link-changer" name="share"/>
-                    <label for="share">Share</label><br/></div>
+                    <label for="share">Share (SH)</label><br/></div>
                 <div class="rights-row-right">You may make the material accessible to others in digital form.</div>
             </div>
             <div class="rights-row">
                 <div class="rights-row-left">
                     <input type="checkbox" id="resale" class="obligation-changer link-changer" name="resale"/>
-                    <label for="resale">Resale</label><br/></div>
-                <div class="rights-row-right">You may sell your smart license “as is” to someone else.</div>
+                    <label for="resale">Resale (RS)</label><br/></div>
+              <div class="rights-row-right">You may sell your <b>smart license</b> “as is” to someone else.</div>
             </div>
             <h3 class="mb-0">Restrictions:</h3>
             <div class="rights-row">
                 <div class="rights-row-left">
                     <input type="checkbox" id="industrial" name="industrial" checked disabled/>
-                    <label class="text-disabled" for="industrial">No Industrial property</label><br/></div>
-                <div class="rights-row-right text-disabled">Always has to be selected. Patent and trademark rights are
-                    not
-                    licensed under this smart license.
+                    <label class="text-disabled" for="industrial">No Industrial property (NI)</label><br/></div>
+              <div class="rights-row-right text-disabled">Patent and trademark rights are not licensed under this <b>smart license</b>.
                 </div>
             </div>
             <div class="rights-row">
                 <div class="rights-row-left">
                     <input type="checkbox" id="noncommercial" class="link-changer" name="noncommercial"/>
-                    <label for="noncommercial">Non-Commercial</label><br/></div>
+                    <label for="noncommercial">Non-Commercial (NC)</label><br/></div>
                 <div class="rights-row-right">You may not use the material for commercial purposes.</div>
             </div>
             <h3 id="title-obligations" class="mb-0">Obligations:</h3>
             <div class="rights-row indicate-adaptions" id="indicate-adaptions">
-                <div class="rights-row-left">Indicate Adaptions</div>
-                <div class="rights-row-right">If you share an adapted version of the licensed material you have to
-                    indicate
-                    that your adaptation bases on the licensed material in a reasonable manner. You have to name the
-                    creator, copyright owner and licensor of the material according to the attribution obligation. If
-                    you
-                    share adaptations you must not imply that they are authorised or otherwise endorsed by the licensor.
+                <div class="rights-row-left">Indicate Adaptions (IA)</div>
+              <div class="rights-row-right">If you share your own adaption you must reference the original <b>licensed material</b>.
                 </div>
             </div>
             <div class="rights-row attribution" id="attribution">
-                <div class="rights-row-left">Attribution</div>
+                <div class="rights-row-left">Attribution (AT)</div>
                 <div class="rights-row-right">If the licensed material contains references to the creator or publisher
-                    or
-                    copyright notices you must not remove them.
+                    or copyright notices you must not remove them.
                 </div>
             </div>
             <div class="result"><h3>Resulting Rights Profile: <a id="result-link" href="rights-profile/RP-IP/">rights-profile/RP-IP</a>
@@ -85,7 +77,7 @@
                 <img class="link-image-demo" src="{% static 'smart-license-demo.png' %}" alt="Smart License Demo Dashboard"/>
             </a>
             <div class="demo-button-container">
-                <a class="demo-button" href="demo/">Go To Demo</a>
+                <a class="demo-button" href="demo/">Try the Demo</a>
             </div>
         </div>
     </div>

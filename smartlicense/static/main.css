@@ -1,8 +1,8 @@
 body {
     margin: 1rem;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 18px;
     color: #333333;
     background-color: #ffffff;
 }
@@ -23,8 +23,8 @@ body {
 .rights-profiles, .smart-license-demo {
     background-color: #bae3ec;
     margin: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
+    padding: 1.6rem;
+    border-radius: 0.5rem;
 }
 
 .rights-profiles h2, .smart-license-demo h2 {
@@ -37,7 +37,7 @@ body {
 }
 
 .mb-0 {
-    margin-bottom: 0;
+    margin-bottom: 1rem;
 }
 
 .text-disabled {
@@ -46,14 +46,15 @@ body {
 
 .rights-row {
     display: flex;
+    margin-bottom: 0.7rem;
 }
 
 .rights-row-left {
-    flex: 0.3;
+    flex: 0.4;
 }
 
 .rights-row-right {
-    flex: 0.7;
+    flex: 0.6;
 }
 
 .result {
@@ -68,9 +69,10 @@ body {
 
 .demo-button {
     text-decoration: none;
-    font-size: 1.8rem;
-    background-color: #5B9FAF;
-    padding: 4px 8px 4px 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #af1c18;
+    padding: 8px 12px 8px 12px;
     color: #fff;
     border-radius: .5rem;
 }
