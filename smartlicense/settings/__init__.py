@@ -140,9 +140,9 @@ NODE_PORT = '9718'
 NODE_USER = 'testuser'
 NODE_PWD = 'testpassword'
 
-STREAM_SMART_LICENSE = 'test'
-STREAM_SMART_LICENSE_ATTESTATION = 'test'
-STREAM_ISCC = 'test'
+STREAM_SMART_LICENSE = 'smart-license'
+STREAM_SMART_LICENSE_ATTESTATION = 'smart-license'
+STREAM_ISCC = 'iscc'
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Smart License Demo',
