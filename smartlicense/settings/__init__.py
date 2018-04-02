@@ -142,7 +142,7 @@ NODE_PWD = 'testpassword'
 
 STREAM_SMART_LICENSE = 'test'
 STREAM_SMART_LICENSE_ATTESTATION = 'test'
-STREAM_ISCC = 'testiscc'
+STREAM_ISCC = 'test'
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Smart License Demo',
