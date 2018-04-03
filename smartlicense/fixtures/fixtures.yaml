@@ -141,28 +141,31 @@
       %}\r\n### 2.3 Obligations\r\n\r\n{% for rm in rights_modules.obligations %}\r\n\r\n{{
       rm.legal_code }}\r\n{% endfor %}\r\n{% endif %}\r\n\r\n## 3. Disclaimer of Warranties
       and Limitation of Liability\r\n\r\n**Unless otherwise separately undertaken
-      by the Licensor, to the extent possible, the licensor offers the licensed material
+      by the licensor, to the extent possible, the licensor offers the licensed material
       as-is and as-available, and makes no representations or warranties of any kind
       concerning the licensed material, whether express, implied, statutory, or other.
       This includes, without limitation, warranties of title, merchantability, fitness
       for a particular purpose, non-infringement, absence of latent or other defects,
       accuracy, or the presence or absence of errors, whether or not known or discoverable.
       Where disclaimers of warranties are not allowed in full or in part, this disclaimer
-      may not apply to You.**\r\n\r\n**To the extent possible, in no event will the
-      licensor be liable to you on any legal theory (including, without limitation,
-      negligence) or otherwise for any direct, special, indirect, incidental, consequential,
-      punitive, exemplary, or other losses, costs, expenses, or damages arising out
-      of this smart license or use of the licensed material, even if the licensor
-      has been advised of the possibility of such losses, costs, expenses, or damages.
-      Where a limitation of liability is not allowed in full or in part, this limitation
-      may not apply to You.**\r\n\r\nThe disclaimer of warranties and limitation of
-      liability provided above shall be interpreted in a manner that, to the extent
-      possible, most closely approximates an absolute disclaimer and waiver of all
-      liability.\r\n\r\n## 4. General Terms and Conditions\r\n\r\nThe Licensor shall
-      not be bound by any additional or different terms or conditions.\r\n\r\nTo the
-      extent possible, if any provision of this License is deemed unenforceable, it
-      shall be automatically reformed to the minimum extent necessary to make it enforceable.
-      If the provision cannot be reformed, it shall be severed from this License without
-      affecting the enforceability of the remaining terms and conditions.\r\n\r\n{%
-      for rm in rights_modules %}\r\n*[{{ rm.short_code }}]: {{ rm.help }}\r\n{% endfor
-      %}"}
+      may not apply to You.**\r\n\r\n**Except in the cases of wilful misconduct or
+      damages directly caused to natural persons, the licensor will in no event be
+      liable for any direct or indirect, material or moral, damages of any kind, arising
+      out of the smart license or of the use of the licensed material, including without
+      limitation, direct, special, indirect, incidental, consequential, punitive,
+      exemplary, or other losses, costs, expenses, or damages arising out of this
+      smart license or use of the licensed material damages, even if the licensor
+      has been advised of the possibility of such  losses, costs, expenses, or damages.
+      However, the licensor will be liable under statutory product liability laws
+      as far such laws apply to the licensed material. Where a limitation of liability
+      is not allowed in full or in part, this limitation may not apply to You.**\r\n\r\nThe
+      disclaimer of warranties and limitation of liability provided above shall be
+      interpreted in a manner that, to the extent possible, most closely approximates
+      an absolute disclaimer and waiver of all liability.\r\n\r\n## 4. General Terms
+      and Conditions\r\n\r\nThe Licensor shall not be bound by any additional or different
+      terms or conditions.\r\n\r\nTo the extent possible, if any provision of this
+      License is deemed unenforceable, it shall be automatically reformed to the minimum
+      extent necessary to make it enforceable. If the provision cannot be reformed,
+      it shall be severed from this License without affecting the enforceability of
+      the remaining terms and conditions.\r\n\r\n{% for rm in rights_modules %}\r\n*[{{
+      rm.short_code }}]: {{ rm.help }}\r\n{% endfor %}"}
