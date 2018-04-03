@@ -9,8 +9,14 @@ from smartlicense.models import Template as SMTemplate
 
 
 def smartlicense_detail(request, ident):
-    sm_obj = SmartLicense.objects.get(ident=ident)
-    return render(request, 'smartlicense.html', {'sm': sm_obj})
+    sl_obj = SmartLicense.objects.get(ident=ident)
+    tpl = SMTemplate.objects.first()
+    template = Template(tpl.template)
+    context = Context({'rights_modules': sl_obj.rights_modules.all()})
+    data = template.render(context)
+    inner_html = markdown.markdown(data, extensions=['markdown.extensions.abbr'])
+    outer_context = {'content': inner_html, 'sl': sl_obj}
+    return render(request, 'sl.html', outer_context)
 
 
 def rights_profile_detail(request, codes):

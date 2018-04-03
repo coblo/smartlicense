@@ -1,0 +1,37 @@
+{% load markup_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+<div class="row">
+  <div class="column"><img src="{% static 'coblo-logo.png' %}" width="200px">
+  </div>
+</div>
+<table>
+  <tr>
+    <td>Smart License ID</td>
+    <td>{{ sl.ident }}</td>
+  </tr>
+  <tr>
+    <td>Licensor Wallet-ID</td>
+    <td>{{ sl.licensor.address }}</td>
+  </tr>
+  <tr>
+    <td>Licensed Material ISCC</td>
+    <td>{{ sl.material.ident }}</td>
+  </tr>
+  <tr>
+    <td>Transaction Model</td>
+    <td>{{ sl.transaction_model.ident }}</td>
+  </tr>
+</table>
+<div id="content">
+  {{ content|safe }}
+</div>
+</body>
+</html>
