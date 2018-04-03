@@ -1,0 +1,34 @@
+{% load static %}
+<html lang="en">
+<head>
+  <style>
+    html { hyphens: auto }
+    @page {
+      size: A4;
+      margin: 2.5cm
+    }
+
+    body, p {
+      font-size: 10pt;
+    }
+
+    h3 {
+      font-size: 15pt;
+    }
+
+    h2 {
+      font-size: 17pt;
+    }
+
+    h1 {
+      font-size: 19pt;
+    }
+
+  </style>
+</head>
+<body>
+<div id="content">
+  {{ content|safe }}
+</div>
+</body>
+</html>

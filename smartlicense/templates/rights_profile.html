@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
+<div class="row">
+  <div class="column"><img src="{% static 'coblo-logo.png' %}" width="200px"></div>
+  <div class="column">
+    <div class="demo-button-container">
+      <a class="demo-button" href="pdf/">PDF Version</a>
+    </div>
+  </div>
+</div>
+
 <div id="content">
   {{ content|safe }}
 </div>

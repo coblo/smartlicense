@@ -105,3 +105,22 @@ body {
 .footer .footer-text a {
     color: white;
 }
+
+.column {
+    float: left;
+    width: 50%;
+    line-height: 2rem;
+}
+
+.row {
+    border-bottom: 1px solid darkgray;
+    margin: 0 1rem 1rem 1rem;
+    padding-bottom: 5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

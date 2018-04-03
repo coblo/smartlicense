@@ -34,4 +34,4 @@ def rights_profile_pdf(request, codes):
     data = template.render(context)
     inner_html = markdown.markdown(data, extensions=['markdown.extensions.abbr'])
     outer_context = {'content': inner_html}
-    return render_to_pdf_response(request, 'rights_profile.html', outer_context)
+    return render_to_pdf_response(request, 'rights_profile_pdf.html', outer_context)
