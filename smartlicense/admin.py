@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
-from django.db.models import TextField
+from django.db.models import ManyToManyField
+from django.forms import CheckboxSelectMultiple
 from django.utils.safestring import mark_safe
-from django_object_actions import DjangoObjectActions, \
-    takes_instance_or_queryset
-from martor.widgets import AdminMartorWidget
+from django_object_actions import DjangoObjectActions, takes_instance_or_queryset
+
 
 from smartlicense.models import (
     WalletID,
@@ -85,8 +85,11 @@ class SmartLicenseAdmin(RegisterableMixin, admin.ModelAdmin):
             'fields': ('admin_txid',)
         })
     )
+
+    formfield_overrides = {
+        ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
     readonly_fields = ('ident', 'admin_txid')
-    autocomplete_fields = ('rights_modules', )
 
 
 @admin.register(ActivationMode)
