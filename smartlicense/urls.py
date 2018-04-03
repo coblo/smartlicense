@@ -27,5 +27,6 @@ urlpatterns = [
     path('demo/', admin.site.urls),
     path('smartlicense/<uuid:ident>/', views.smartlicense_detail),
     path('rights-profile/<str:codes>/', views.rights_profile_detail),
+    path('rights-profile/<str:codes>/pdf/', views.rights_profile_pdf),
     url(r'^martor/', include('martor.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

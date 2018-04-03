@@ -10,3 +10,5 @@ markdown
 martor
 django-object-actions
 django-suit
+xhtml2pdf>=0.2b1
+django-easy-pdf
