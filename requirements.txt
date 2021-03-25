@@ -2,7 +2,7 @@ Django==2.2.10
 pytz==2019.2
 Fabric3==1.14.post1
 django-markup==1.4.1
-PyYAML==5.1.2
+PyYAML==5.4
 iscc==1.0.5
 docx2txt==0.8
 mcrpc==1.0.2
