@@ -1,4 +1,4 @@
-Django==2.2.10
+Django==2.2.27
 pytz==2019.2
 Fabric3==1.14.post1
 django-markup==1.4.1
